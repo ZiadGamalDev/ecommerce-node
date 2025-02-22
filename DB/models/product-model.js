@@ -28,7 +28,7 @@ const productSchema = new Schema(
     },
     status: {
       type: String,
-      enum: ["active", "inactive", "discontinued"],
+      enum: ["active", "inactive"],
       default: "active",
       required: true,
       index: true,
@@ -143,12 +143,12 @@ const productSchema = new Schema(
       required: [true, ERROR_MESSAGES.required("Category reference")],
       index: true,
     },
-    subCategory: {
-      type: Schema.Types.ObjectId,
-      ref: "SubCategory",
-      required: [true, ERROR_MESSAGES.required("Subcategory reference")],
-      index: true,
-    },
+    // subCategory: {
+    //   type: Schema.Types.ObjectId,
+    //   ref: "SubCategory",
+    //   required: [true, ERROR_MESSAGES.required("Subcategory reference")],
+    //   index: true,
+    // },
     brand: {
       type: Schema.Types.ObjectId,
       ref: "Brand",

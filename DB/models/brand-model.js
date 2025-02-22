@@ -47,7 +47,7 @@ const brandSchema = new Schema(
       index: true,
     },
 
-    subCategory: { type: Schema.Types.ObjectId, ref: 'SubCategory', required: true },
+    // subCategory: { type: Schema.Types.ObjectId, ref: 'SubCategory', required: true },
     category: { type: Schema.Types.ObjectId, ref: 'Category', required: true }
 
   },

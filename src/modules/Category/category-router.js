@@ -26,5 +26,9 @@ router.put(
 );
 
 router.get("/", asyncHandler(categoryController.getAllCategories));
-
+router.get(
+  "/:categoryId",
+  validationMiddleware(categoryValidation.getCategorySchema),
+  asyncHandler(categoryController.getCategoryById)
+);
 export default router;

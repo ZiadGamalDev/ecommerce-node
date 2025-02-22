@@ -63,11 +63,11 @@ const categorySchema = new Schema(
   }
 );
 
-categorySchema.virtual("subcategories", {
-  ref: "SubCategory",
-  localField: "_id",
-  foreignField: "category",
-});
+// categorySchema.virtual("subcategories", {
+//   ref: "SubCategory",
+//   localField: "_id",
+//   foreignField: "category",
+// });
 
 categorySchema.virtual("brands", {
   ref: "Brand",
