@@ -4,16 +4,27 @@ import { globalResponse } from "./Middlewares/gloabl-response.js";
 
 import * as routers from "../src/modules/index.routers.js";
 import { rollBackSavedDocuments } from "./Middlewares/rollback-saved-docs.js";
-export const initiateApp = (app, express) => {
+import Category from "../DB/models/category-model.js";
+
+export const initiateApp = async (app, express) => {
   const port = process.env.PORT;
   console.log(port);
   app.use(express.json());
 
   db_connection();
 
+  try {
+    await Category.collection.dropIndex("image.public_id_1");
+    console.log("Index dropped successfully");
+  } catch (err) {
+    // Index might not exist, which is fine
+    console.log("No problematic index found");
+  }
+
   app.use(cors());
 
   app.use("/auth", routers.authRouter);
+  app.use("/category", routers.categoryRouter);
   app.get("/", (req, res) => res.send("Hello World!"));
 
   app.use("*", (req, res, next) => {

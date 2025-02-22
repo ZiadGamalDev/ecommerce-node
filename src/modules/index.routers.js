@@ -1,3 +1,3 @@
 import authRouter from "./Auth/auth-router.js";
-
-export { authRouter };
+import categoryRouter from './Category/category-router.js'
+export { authRouter,categoryRouter };
