@@ -1,0 +1,680 @@
+{
+	"info": {
+		"_postman_id": "047c303d-0089-4fba-bb9c-260771284fcf",
+		"name": "E-commerce",
+		"schema": "https://schema.getpostman.com/json/collection/v2.0.0/collection.json",
+		"_exporter_id": "32055972",
+		"_collection_link": "https://code-craft.postman.co/workspace/52381f9f-ef16-4119-8c8d-bcfb1b9cc2b4/collection/32055972-047c303d-0089-4fba-bb9c-260771284fcf?action=share&source=collection_link&creator=32055972"
+	},
+	"item": [
+		{
+			"name": "Auth",
+			"item": [
+				{
+					"name": "sign up",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "\r\n\r\n{\r\n  \"username\": \"sarahkh22\",\r\n  \"email\": \"sarahkhaled22003@gmail.com\",\r\n  \"password\": \"SecurePass123\",\r\n  \"repeat_password\": \"SecurePass123\",\r\n  \"phoneNumbers\": [\"01234567890\", \"01598765432\"],\r\n  \"age\": 25,\r\n  \"addresses\": [\r\n    \"123 Main Street, Cairo, Egypt\",\r\n    \"456 Elm Street, Giza, Egypt\"\r\n  ]\r\n}\r\n",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": "http://localhost:3000/auth/"
+					},
+					"response": [
+						{
+							"name": "sign up",
+							"originalRequest": {
+								"method": "POST",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "\r\n\r\n{\r\n  \"username\": \"sarahkh22\",\r\n  \"email\": \"sarahkhaled22003@gmail.com\",\r\n  \"password\": \"SecurePass123\",\r\n  \"repeat_password\": \"SecurePass123\",\r\n  \"phoneNumbers\": [\"01234567890\", \"01598765432\"],\r\n  \"age\": 25,\r\n  \"addresses\": [\r\n    \"123 Main Street, Cairo, Egypt\",\r\n    \"456 Elm Street, Giza, Egypt\"\r\n  ]\r\n}\r\n",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": "http://localhost:3000/auth/"
+							},
+							"status": "Created",
+							"code": 201,
+							"_postman_previewlanguage": "json",
+							"header": [
+								{
+									"key": "X-Powered-By",
+									"value": "Express"
+								},
+								{
+									"key": "Access-Control-Allow-Origin",
+									"value": "*"
+								},
+								{
+									"key": "Content-Type",
+									"value": "application/json; charset=utf-8"
+								},
+								{
+									"key": "Content-Length",
+									"value": "571"
+								},
+								{
+									"key": "ETag",
+									"value": "W/\"23b-29T7NTL8UZHmtoD5vrOxXCmPvjE\""
+								},
+								{
+									"key": "Date",
+									"value": "Thu, 20 Feb 2025 22:54:46 GMT"
+								},
+								{
+									"key": "Connection",
+									"value": "keep-alive"
+								},
+								{
+									"key": "Keep-Alive",
+									"value": "timeout=5"
+								}
+							],
+							"cookie": [],
+							"body": "{\n    \"success\": true,\n    \"message\": \"User created successfully, please check your email to verify your account\",\n    \"data\": {\n        \"username\": \"sarahkh22\",\n        \"email\": \"sarahkhaled22003@gmail.com\",\n        \"password\": \"$2b$08$f7SdIjN1f2jmTOWg1yMjC.tsaNJlhD47btt.1PJ3Z3xlNjdT4izjS\",\n        \"phoneNumbers\": [\n            \"01234567890\",\n            \"01598765432\"\n        ],\n        \"addresses\": [\n            \"123 Main Street, Cairo, Egypt\",\n            \"456 Elm Street, Giza, Egypt\"\n        ],\n        \"role\": \"user\",\n        \"isEmailVerified\": false,\n        \"age\": 25,\n        \"isLoggedIn\": false,\n        \"provider\": \"System\",\n        \"_id\": \"67b7b2b59cdaa2bbe7dd24b3\",\n        \"createdAt\": \"2025-02-20T22:54:45.902Z\",\n        \"updatedAt\": \"2025-02-20T22:54:45.902Z\",\n        \"__v\": 0\n    }\n}"
+						}
+					]
+				},
+				{
+					"name": "log in",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n\r\n     \"email\": \"sarahkhaled22003@gmail.com\",\r\n  \"password\": \"SecurePass123\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": "http://localhost:3000/auth/login"
+					},
+					"response": [
+						{
+							"name": "log in",
+							"originalRequest": {
+								"method": "POST",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "{\r\n\r\n     \"email\": \"sarahkhaled22003@gmail.com\",\r\n  \"password\": \"SecurePass123\"\r\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": "http://localhost:3000/auth/login"
+							},
+							"status": "OK",
+							"code": 200,
+							"_postman_previewlanguage": "json",
+							"header": [
+								{
+									"key": "X-Powered-By",
+									"value": "Express"
+								},
+								{
+									"key": "Access-Control-Allow-Origin",
+									"value": "*"
+								},
+								{
+									"key": "Content-Type",
+									"value": "application/json; charset=utf-8"
+								},
+								{
+									"key": "Content-Length",
+									"value": "317"
+								},
+								{
+									"key": "ETag",
+									"value": "W/\"13d-fbpU1FNfxBya8stbsxgXSgHbbhk\""
+								},
+								{
+									"key": "Date",
+									"value": "Sat, 22 Feb 2025 04:57:26 GMT"
+								},
+								{
+									"key": "Connection",
+									"value": "keep-alive"
+								},
+								{
+									"key": "Keep-Alive",
+									"value": "timeout=5"
+								}
+							],
+							"cookie": [],
+							"body": "{\n    \"success\": true,\n    \"message\": \"User logged in successfully\",\n    \"data\": {\n        \"token\": \"eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJlbWFpbCI6InNhcmFoa2hhbGVkMjIwMDNAZ21haWwuY29tIiwiaWQiOiI2N2I3YjJiNTljZGFhMmJiZTdkZDI0YjMiLCJsb2dnZWRJbiI6dHJ1ZSwiaWF0IjoxNzQwMjAwMjQ2LCJleHAiOjE3NDAyODY2NDZ9.8EaoWG9ak2bYB9VB7BY0SBVV92SNd6_vt8Jf5CdHFJA\"\n    }\n}"
+						}
+					]
+				},
+				{
+					"name": "forget password",
+					"request": {
+						"method": "PUT",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n\r\n     \"email\": \"sarahkhaled22003@gmail.com\"\r\n \r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": "http://localhost:3000/auth/forgetpassword"
+					},
+					"response": [
+						{
+							"name": "forget code",
+							"originalRequest": {
+								"method": "PUT",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "{\r\n\r\n     \"email\": \"sarahkhaled22003@gmail.com\"\r\n \r\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": "http://localhost:3000/auth/forgetpassword"
+							},
+							"status": "OK",
+							"code": 200,
+							"_postman_previewlanguage": "json",
+							"header": [
+								{
+									"key": "X-Powered-By",
+									"value": "Express"
+								},
+								{
+									"key": "Access-Control-Allow-Origin",
+									"value": "*"
+								},
+								{
+									"key": "Content-Type",
+									"value": "application/json; charset=utf-8"
+								},
+								{
+									"key": "Content-Length",
+									"value": "77"
+								},
+								{
+									"key": "ETag",
+									"value": "W/\"4d-4I9nVEX2bnI2qzIkoBYwILZJBbk\""
+								},
+								{
+									"key": "Date",
+									"value": "Thu, 20 Feb 2025 23:17:34 GMT"
+								},
+								{
+									"key": "Connection",
+									"value": "keep-alive"
+								},
+								{
+									"key": "Keep-Alive",
+									"value": "timeout=5"
+								}
+							],
+							"cookie": [],
+							"body": "{\n    \"success\": true,\n    \"message\": \"If email exists, reset instructions will be sent\"\n}"
+						}
+					]
+				},
+				{
+					"name": "reset password",
+					"request": {
+						"method": "PUT",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"newPassword\":\"SecurePass123\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://localhost:3000/auth/reset-password?token=eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJlbWFpbCI6InNhcmFoa2hhbGVkMjIwMDNAZ21haWwuY29tIiwidXNlcklkIjoiNjdiN2IyYjU5Y2RhYTJiYmU3ZGQyNGIzIiwiaWF0IjoxNzQwMDkzNDUxLCJleHAiOjE3NDAwOTUyNTF9.H2XJtWNVe2GoJYGJc0lkPopZctqvZuWrw4IW2s7XaaM",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "3000",
+							"path": [
+								"auth",
+								"reset-password"
+							],
+							"query": [
+								{
+									"key": "token",
+									"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJlbWFpbCI6InNhcmFoa2hhbGVkMjIwMDNAZ21haWwuY29tIiwidXNlcklkIjoiNjdiN2IyYjU5Y2RhYTJiYmU3ZGQyNGIzIiwiaWF0IjoxNzQwMDkzNDUxLCJleHAiOjE3NDAwOTUyNTF9.H2XJtWNVe2GoJYGJc0lkPopZctqvZuWrw4IW2s7XaaM"
+								}
+							]
+						}
+					},
+					"response": [
+						{
+							"name": "reset password",
+							"originalRequest": {
+								"method": "PUT",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "{\r\n    \"newPassword\":\"SecurePass123\"\r\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "http://localhost:3000/auth/reset-password?token=eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJlbWFpbCI6InNhcmFoa2hhbGVkMjIwMDNAZ21haWwuY29tIiwidXNlcklkIjoiNjdiN2IyYjU5Y2RhYTJiYmU3ZGQyNGIzIiwiaWF0IjoxNzQwMDkzNDUxLCJleHAiOjE3NDAwOTUyNTF9.H2XJtWNVe2GoJYGJc0lkPopZctqvZuWrw4IW2s7XaaM",
+									"protocol": "http",
+									"host": [
+										"localhost"
+									],
+									"port": "3000",
+									"path": [
+										"auth",
+										"reset-password"
+									],
+									"query": [
+										{
+											"key": "token",
+											"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJlbWFpbCI6InNhcmFoa2hhbGVkMjIwMDNAZ21haWwuY29tIiwidXNlcklkIjoiNjdiN2IyYjU5Y2RhYTJiYmU3ZGQyNGIzIiwiaWF0IjoxNzQwMDkzNDUxLCJleHAiOjE3NDAwOTUyNTF9.H2XJtWNVe2GoJYGJc0lkPopZctqvZuWrw4IW2s7XaaM"
+										}
+									]
+								}
+							},
+							"status": "OK",
+							"code": 200,
+							"_postman_previewlanguage": "json",
+							"header": [
+								{
+									"key": "X-Powered-By",
+									"value": "Express"
+								},
+								{
+									"key": "Access-Control-Allow-Origin",
+									"value": "*"
+								},
+								{
+									"key": "Content-Type",
+									"value": "application/json; charset=utf-8"
+								},
+								{
+									"key": "Content-Length",
+									"value": "65"
+								},
+								{
+									"key": "ETag",
+									"value": "W/\"41-eCNBSpeVy/DNGOsQ58kBWhOIjHw\""
+								},
+								{
+									"key": "Date",
+									"value": "Thu, 20 Feb 2025 23:18:12 GMT"
+								},
+								{
+									"key": "Connection",
+									"value": "keep-alive"
+								},
+								{
+									"key": "Keep-Alive",
+									"value": "timeout=5"
+								}
+							],
+							"cookie": [],
+							"body": "{\n    \"success\": true,\n    \"message\": \"Password has been reset successfully\"\n}"
+						}
+					]
+				}
+			]
+		},
+		{
+			"name": "Category",
+			"item": [
+				{
+					"name": "add category",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "accesstoken",
+								"value": "accesstoken_eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJlbWFpbCI6InNhcmFoa2hhbGVkMjIwMDNAZ21haWwuY29tIiwiaWQiOiI2N2I3YjJiNTljZGFhMmJiZTdkZDI0YjMiLCJsb2dnZWRJbiI6dHJ1ZSwiaWF0IjoxNzQwMjAwMjQ2LCJleHAiOjE3NDAyODY2NDZ9.8EaoWG9ak2bYB9VB7BY0SBVV92SNd6_vt8Jf5CdHFJA",
+								"type": "text",
+								"disabled": true
+							},
+							{
+								"key": "accesstoken",
+								"value": "accesstoken_eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJlbWFpbCI6InNhcmFoa2hhbGVkMjIwMDNAZ21haWwuY29tIiwiaWQiOiI2N2I3YjJiNTljZGFhMmJiZTdkZDI0YjMiLCJsb2dnZWRJbiI6dHJ1ZSwiaWF0IjoxNzQwMjAwMjQ2LCJleHAiOjE3NDAyODY2NDZ9.8EaoWG9ak2bYB9VB7BY0SBVV92SNd6_vt8Jf5CdHFJA",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "formdata",
+							"formdata": [
+								{
+									"key": "name",
+									"value": "Clothing  v8",
+									"type": "text"
+								},
+								{
+									"key": "image",
+									"type": "file",
+									"src": "postman-cloud:///1eff0d8c-b23d-44e0-a6c0-5f68a46b9a8b"
+								}
+							]
+						},
+						"url": "http://localhost:3000/category/"
+					},
+					"response": [
+						{
+							"name": "add category",
+							"originalRequest": {
+								"method": "POST",
+								"header": [
+									{
+										"key": "accesstoken",
+										"value": "accesstoken_eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJlbWFpbCI6InNhcmFoa2hhbGVkMjIwMDNAZ21haWwuY29tIiwiaWQiOiI2N2I3YjJiNTljZGFhMmJiZTdkZDI0YjMiLCJsb2dnZWRJbiI6dHJ1ZSwiaWF0IjoxNzQwMjAwMjQ2LCJleHAiOjE3NDAyODY2NDZ9.8EaoWG9ak2bYB9VB7BY0SBVV92SNd6_vt8Jf5CdHFJA",
+										"type": "text"
+									}
+								],
+								"body": {
+									"mode": "formdata",
+									"formdata": [
+										{
+											"key": "name",
+											"value": "Electronics",
+											"type": "text"
+										},
+										{
+											"key": "image",
+											"type": "file",
+											"src": "postman-cloud:///1eff0d8c-b23d-44e0-a6c0-5f68a46b9a8b"
+										}
+									],
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": "http://localhost:3000/category/"
+							},
+							"status": "Created",
+							"code": 201,
+							"_postman_previewlanguage": "json",
+							"header": [
+								{
+									"key": "X-Powered-By",
+									"value": "Express"
+								},
+								{
+									"key": "Access-Control-Allow-Origin",
+									"value": "*"
+								},
+								{
+									"key": "Content-Type",
+									"value": "application/json; charset=utf-8"
+								},
+								{
+									"key": "Content-Length",
+									"value": "554"
+								},
+								{
+									"key": "ETag",
+									"value": "W/\"22a-Jh66Z82eYiL/CiX6Y9UD+bhtMkk\""
+								},
+								{
+									"key": "Date",
+									"value": "Sat, 22 Feb 2025 12:36:26 GMT"
+								},
+								{
+									"key": "Connection",
+									"value": "keep-alive"
+								},
+								{
+									"key": "Keep-Alive",
+									"value": "timeout=5"
+								}
+							],
+							"cookie": [],
+							"body": "{\n    \"success\": true,\n    \"message\": \"Category created successfully\",\n    \"data\": {\n        \"name\": \"Electronics\",\n        \"image\": {\n            \"secure_url\": \"https://res.cloudinary.com/dsx35oatb/image/upload/v1740227819/E-commerce-API/Categories/6aa5/gibz5wp9s0jhznfudrhl.jpg\",\n            \"public_id\": \"E-commerce-API/Categories/6aa5/gibz5wp9s0jhznfudrhl\"\n        },\n        \"folderId\": \"6aa5\",\n        \"isActive\": true,\n        \"addedBy\": \"67b7b2b59cdaa2bbe7dd24b3\",\n        \"_id\": \"67b9c4cadbbf2601410166aa\",\n        \"metadata\": {},\n        \"slug\": \"electronics\",\n        \"createdAt\": \"2025-02-22T12:36:26.041Z\",\n        \"updatedAt\": \"2025-02-22T12:36:26.041Z\",\n        \"__v\": 0,\n        \"id\": \"67b9c4cadbbf2601410166aa\"\n    }\n}"
+						}
+					]
+				},
+				{
+					"name": "update category",
+					"request": {
+						"method": "PUT",
+						"header": [
+							{
+								"key": "accesstoken",
+								"value": "accesstoken_eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJlbWFpbCI6InNhcmFoa2hhbGVkMjIwMDNAZ21haWwuY29tIiwiaWQiOiI2N2I3YjJiNTljZGFhMmJiZTdkZDI0YjMiLCJsb2dnZWRJbiI6dHJ1ZSwiaWF0IjoxNzQwMjAwMjQ2LCJleHAiOjE3NDAyODY2NDZ9.8EaoWG9ak2bYB9VB7BY0SBVV92SNd6_vt8Jf5CdHFJA",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "formdata",
+							"formdata": [
+								{
+									"key": "name",
+									"value": "Electronics v0",
+									"type": "text"
+								},
+								{
+									"key": "image",
+									"type": "file",
+									"src": "postman-cloud:///1eed69ae-f352-4810-8041-dcc079a97ef9"
+								},
+								{
+									"key": "oldPublicId",
+									"value": "jj",
+									"type": "text"
+								}
+							]
+						},
+						"url": "http://localhost:3000/category/67b9c4cadbbf2601410166aa"
+					},
+					"response": [
+						{
+							"name": "update category",
+							"originalRequest": {
+								"method": "PUT",
+								"header": [
+									{
+										"key": "accesstoken",
+										"value": "accesstoken_eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJlbWFpbCI6InNhcmFoa2hhbGVkMjIwMDNAZ21haWwuY29tIiwiaWQiOiI2N2I3YjJiNTljZGFhMmJiZTdkZDI0YjMiLCJsb2dnZWRJbiI6dHJ1ZSwiaWF0IjoxNzQwMjAwMjQ2LCJleHAiOjE3NDAyODY2NDZ9.8EaoWG9ak2bYB9VB7BY0SBVV92SNd6_vt8Jf5CdHFJA",
+										"type": "text"
+									}
+								],
+								"body": {
+									"mode": "formdata",
+									"formdata": [
+										{
+											"key": "name",
+											"value": "Electronics v7",
+											"type": "text"
+										},
+										{
+											"key": "image",
+											"type": "file",
+											"src": "postman-cloud:///1eed69ae-f352-4810-8041-dcc079a97ef9"
+										},
+										{
+											"key": "oldPublicId",
+											"value": "jj",
+											"type": "text"
+										}
+									]
+								},
+								"url": "http://localhost:3000/category/67b9c4cadbbf2601410166aa"
+							},
+							"status": "OK",
+							"code": 200,
+							"_postman_previewlanguage": "json",
+							"header": [
+								{
+									"key": "X-Powered-By",
+									"value": "Express"
+								},
+								{
+									"key": "Access-Control-Allow-Origin",
+									"value": "*"
+								},
+								{
+									"key": "Content-Type",
+									"value": "application/json; charset=utf-8"
+								},
+								{
+									"key": "Content-Length",
+									"value": "596"
+								},
+								{
+									"key": "ETag",
+									"value": "W/\"254-RvHJ7B7eZeK57MhJDakbajaLld0\""
+								},
+								{
+									"key": "Date",
+									"value": "Sat, 22 Feb 2025 13:00:08 GMT"
+								},
+								{
+									"key": "Connection",
+									"value": "keep-alive"
+								},
+								{
+									"key": "Keep-Alive",
+									"value": "timeout=5"
+								}
+							],
+							"cookie": [],
+							"body": "{\n    \"success\": true,\n    \"message\": \"Category updated successfully\",\n    \"data\": {\n        \"image\": {\n            \"secure_url\": \"https://res.cloudinary.com/dsx35oatb/image/upload/v1740229123/E-commerce-API/Categories/6aa5/gibz5wp9s0jhznfudrhl.png\",\n            \"public_id\": \"E-commerce-API/Categories/6aa5/gibz5wp9s0jhznfudrhl\"\n        },\n        \"_id\": \"67b9c4cadbbf2601410166aa\",\n        \"name\": \"Electronics v7\",\n        \"folderId\": \"6aa5\",\n        \"isActive\": true,\n        \"addedBy\": \"67b7b2b59cdaa2bbe7dd24b3\",\n        \"metadata\": {},\n        \"slug\": \"electronics\",\n        \"createdAt\": \"2025-02-22T12:36:26.041Z\",\n        \"updatedAt\": \"2025-02-22T13:00:03.341Z\",\n        \"__v\": 0,\n        \"updatedBy\": \"67b7b2b59cdaa2bbe7dd24b3\",\n        \"id\": \"67b9c4cadbbf2601410166aa\"\n    }\n}"
+						}
+					]
+				},
+				{
+					"name": "delete category",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": "http://localhost:3000/category/67b9c4cadbbf2601410166aa"
+					},
+					"response": []
+				},
+				{
+					"name": "get all categories",
+					"request": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "accesstoken",
+								"value": "accesstoken_eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJlbWFpbCI6InNhcmFoa2hhbGVkMjIwMDNAZ21haWwuY29tIiwiaWQiOiI2N2I3YjJiNTljZGFhMmJiZTdkZDI0YjMiLCJsb2dnZWRJbiI6dHJ1ZSwiaWF0IjoxNzQwMjAwMjQ2LCJleHAiOjE3NDAyODY2NDZ9.8EaoWG9ak2bYB9VB7BY0SBVV92SNd6_vt8Jf5CdHFJA",
+								"type": "text"
+							}
+						],
+						"url": "http://localhost:3000/category/"
+					},
+					"response": []
+				},
+				{
+					"name": "get category by id",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": "http://localhost:3000/category/67b9c4cadbbf2601410166aa"
+					},
+					"response": [
+						{
+							"name": "New Request",
+							"originalRequest": {
+								"method": "GET",
+								"header": [],
+								"url": "http://localhost:3000/category/67b9c4cadbbf2601410166aa"
+							},
+							"status": "OK",
+							"code": 200,
+							"_postman_previewlanguage": "json",
+							"header": [
+								{
+									"key": "X-Powered-By",
+									"value": "Express"
+								},
+								{
+									"key": "Access-Control-Allow-Origin",
+									"value": "*"
+								},
+								{
+									"key": "Content-Type",
+									"value": "application/json; charset=utf-8"
+								},
+								{
+									"key": "Content-Length",
+									"value": "596"
+								},
+								{
+									"key": "ETag",
+									"value": "W/\"254-RY1v68DlQCJzvZEexBaSH2gWxlE\""
+								},
+								{
+									"key": "Date",
+									"value": "Sat, 22 Feb 2025 14:44:16 GMT"
+								},
+								{
+									"key": "Connection",
+									"value": "keep-alive"
+								},
+								{
+									"key": "Keep-Alive",
+									"value": "timeout=5"
+								}
+							],
+							"cookie": [],
+							"body": "{\n    \"success\": true,\n    \"message\": \"Category fetched successfully\",\n    \"data\": {\n        \"image\": {\n            \"secure_url\": \"https://res.cloudinary.com/dsx35oatb/image/upload/v1740229123/E-commerce-API/Categories/6aa5/gibz5wp9s0jhznfudrhl.png\",\n            \"public_id\": \"E-commerce-API/Categories/6aa5/gibz5wp9s0jhznfudrhl\"\n        },\n        \"_id\": \"67b9c4cadbbf2601410166aa\",\n        \"name\": \"Electronics v0\",\n        \"folderId\": \"6aa5\",\n        \"isActive\": true,\n        \"addedBy\": \"67b7b2b59cdaa2bbe7dd24b3\",\n        \"metadata\": {},\n        \"slug\": \"electronics\",\n        \"createdAt\": \"2025-02-22T12:36:26.041Z\",\n        \"updatedAt\": \"2025-02-22T13:39:13.804Z\",\n        \"__v\": 0,\n        \"updatedBy\": \"67b7b2b59cdaa2bbe7dd24b3\",\n        \"id\": \"67b9c4cadbbf2601410166aa\"\n    }\n}"
+						}
+					]
+				}
+			]
+		},
+		{
+			"name": "Brand",
+			"item": [
+				{
+					"name": "add brand",
+					"request": {
+						"method": "GET",
+						"header": []
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "Addresses",
+			"item": []
+		},
+		{
+			"name": "Cart",
+			"item": []
+		},
+		{
+			"name": "Order",
+			"item": []
+		}
+	]
+}
