@@ -133,6 +133,22 @@ export const getAllCategories = async (req, res, next) => {
   });
 };
 
+export const getCategoryById = async (req, res, next) => {
+  const categoryId = req.params.categoryId;
+  console.log(categoryId);
+  const category = await categoryModel.findById(categoryId);
+
+  if (!category) {
+    return next({ cause: 404, message: "Category not found" });
+  }
+
+  res.status(200).json({
+    success: true,
+    message: "Category fetched successfully",
+    data: category,
+  });
+};
+
 //====================== delete category ======================//
 // export const deleteCategory = async (req, res, next) => {
 //     const { categoryId } = req.params
