@@ -15,4 +15,11 @@ router.get(
   asyncHandler(cartController.getCart)
 );
 
+router.post(
+  "/:userId",
+  isAuth([systemRoles.USER]),
+  validationMiddleware(cartValidation.addToCartSchema),
+  cartController.addToCart
+);
+
 export default router;
