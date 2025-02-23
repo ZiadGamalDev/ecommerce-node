@@ -25,11 +25,14 @@ export const initiateApp = async (app, express) => {
 
   app.use("/auth", routers.authRouter);
   app.use("/category", routers.categoryRouter);
+  app.use("/cart", routers.cartRouter);
+
   app.get("/", (req, res) => res.send("Hello World!"));
 
   app.use("*", (req, res, next) => {
     res.status(404).json({ message: "Not Found" });
   });
+  
   app.use(globalResponse, rollBackSavedDocuments);
 
   const server = app.listen(port, () =>
