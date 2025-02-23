@@ -21,7 +21,7 @@ const productSchema = new Schema(
     },
     slug: {
       type: String,
-      required: true,
+
       trim: true,
       lowercase: true,
       index: true,
@@ -182,7 +182,7 @@ productSchema.virtual("finalPrice").get(function () {
 // Middleware
 productSchema.pre("save", function (next) {
   if (this.isModified("title")) {
-    this.slug = slugify(this.title, { lower: true, strict: true, trim: true });
+    this.slug = slugify(this.title, "-");
   }
   if (this.isModified()) {
     this.version += 1;

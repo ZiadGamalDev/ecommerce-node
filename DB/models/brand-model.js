@@ -17,7 +17,7 @@ const brandSchema = new Schema(
     slug: {
       type: String,
       lowercase: true,
-      required: true,
+
       index: true,
     },
     description: {
@@ -48,8 +48,7 @@ const brandSchema = new Schema(
     },
 
     // subCategory: { type: Schema.Types.ObjectId, ref: 'SubCategory', required: true },
-    category: { type: Schema.Types.ObjectId, ref: 'Category', required: true }
-
+    category: { type: Schema.Types.ObjectId, ref: "Category", required: true },
   },
   {
     timestamps: true,
@@ -58,11 +57,12 @@ const brandSchema = new Schema(
   }
 );
 
-brandSchema.pre("save", function (next) {
-  if (this.isModified("name")) {
-    this.slug = slugify(this.name, { lower: true, strict: true, trim: true });
+brandSchema.pre("validate", function (next) {
+  if (!this.slug && this.name) {
+    this.slug = slugify(this.name, "-");
   }
   next();
 });
+
 
 export default mongoose.models.Brand || model("Brand", brandSchema);
