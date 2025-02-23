@@ -22,4 +22,11 @@ router.post(
   cartController.addToCart
 );
 
+router.delete(
+  "/:userId",
+  isAuth([systemRoles.USER]),
+  validationMiddleware(cartValidation.removeFromCartSchema),
+  asyncHandler(cartController.removeFromCart)
+);
+
 export default router;
