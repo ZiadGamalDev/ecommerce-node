@@ -26,6 +26,8 @@ export const initiateApp = async (app, express) => {
   app.use("/auth", routers.authRouter);
   app.use("/category", routers.categoryRouter);
   app.use("/cart", routers.cartRouter);
+  app.use("/tracking/product", routers.productActivityRouter);
+  app.use("/tracking/search", routers.searchActivityRouter);
 
   app.get("/", (req, res) => res.send("Hello World!"));
 
