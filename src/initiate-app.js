@@ -26,6 +26,7 @@ export const initiateApp = async (app, express) => {
   app.use("/auth", routers.authRouter);
   app.use("/category", routers.categoryRouter);
   app.use("/cart", routers.cartRouter);
+  app.use("/wishList", routers.wishListRouter);
   app.use("/tracking/product", routers.productActivityRouter);
   app.use("/tracking/search", routers.searchActivityRouter);
   app.use("/settings", routers.settingsRouter);
@@ -35,7 +36,7 @@ export const initiateApp = async (app, express) => {
   app.use("*", (req, res, next) => {
     res.status(404).json({ message: "Not Found" });
   });
-  
+
   app.use(globalResponse, rollBackSavedDocuments);
 
   const server = app.listen(port, () =>
