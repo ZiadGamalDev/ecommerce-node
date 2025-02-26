@@ -30,6 +30,7 @@ export const initiateApp = async (app, express) => {
   app.use("/tracking/product", routers.productActivityRouter);
   app.use("/tracking/search", routers.searchActivityRouter);
   app.use("/settings", routers.settingsRouter);
+  app.use("/review", routers.reviewRouter);
 
   app.get("/", (req, res) => res.send("Hello World!"));
 
