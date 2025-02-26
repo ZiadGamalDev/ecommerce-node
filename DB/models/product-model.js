@@ -6,7 +6,7 @@ const productSchema = new Schema(
   {
     title: {
       type: String,
-      unique: [true, ERROR_MESSAGES.unique("Product title")],
+      // unique: [true, ERROR_MESSAGES.unique("Product title")],
       trim: true,
       required: [true, ERROR_MESSAGES.required("Product title")],
       minLength: [3, ERROR_MESSAGES.minLength("Product title", 3)],
@@ -49,6 +49,7 @@ const productSchema = new Schema(
         type: String,
         enum: ["fixed", "percentage"],
         required: [true, ERROR_MESSAGES.required("Discount type")],
+        default: "percentage",
       },
       value: {
         type: Number,
