@@ -19,7 +19,7 @@ router.post(
   "/:userId",
   isAuth([systemRoles.USER]),
   validationMiddleware(cartValidation.addToCartSchema),
-  cartController.addToCart
+  asyncHandler(cartController.addToCart)
 );
 
 router.delete(

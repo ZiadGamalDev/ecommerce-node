@@ -34,11 +34,19 @@ export const addToCart = async (req, res, next) => {
       return res.status(404).json({ message: "Product not found" });
     }
 
+    if (product.stock < quantity) {
+      return res.status(400).json({ message: "Out of Stock" });
+    }
+
     const productIndex = cart.products.findIndex(
       (item) => item.productId.toString() === productId
     );
 
     if (productIndex > -1) {
+      if (cart.products[productIndex].quantity + quantity > product.stock) {
+        return res.status(400).json({ message: "Out of Stock" });
+      }
+
       cart.products[productIndex].quantity += quantity;
       cart.products[productIndex].finalPrice =
         cart.products[productIndex].basePrice *
@@ -71,15 +79,15 @@ export const removeFromCart = async (req, res, next) => {
     const { userId } = req.params;
     const { productId } = req.body;
 
-    let cart = await Cart.findOne({ userId });
+    const cart = await Cart.findOneAndUpdate(
+      { userId },
+      { $pull: { products: { productId } } },
+      { new: true }
+    );
 
     if (!cart) {
       return res.status(404).json({ message: "Cart not found" });
     }
-
-    cart.products = cart.products.filter(
-      (item) => item.productId.toString() !== productId
-    );
 
     cart.subTotal = cart.products.reduce(
       (sum, item) => sum + item.finalPrice,
@@ -87,6 +95,7 @@ export const removeFromCart = async (req, res, next) => {
     );
 
     await cart.save();
+
     res.status(200).json({ message: "Item removed from cart", cart });
   } catch (error) {
     next(error);
