@@ -8,4 +8,6 @@ export const ERROR_MESSAGES = {
   invalid: (field) => `Invalid ${field} format`,
   negative: (field) => `${field} cannot be negative`,
   range: (field, min, max) => `${field} must be between ${min} and ${max}`,
+  minValue: (field, value) => `${field} must be at least ${value}`,
+  maxValue: (field, value) => `${field} must be at most ${value}`,
 };

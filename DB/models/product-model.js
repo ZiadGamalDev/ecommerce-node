@@ -1,5 +1,6 @@
 import slugify from "slugify";
 import { Schema , model } from "mongoose";
+import mongoose, { model, Schema } from "mongoose";
 import { ERROR_MESSAGES } from "../shared/error-message.js";
 import { imageSchema } from "../shared/image-schema.js";
 import mongoose from "mongoose"
@@ -7,7 +8,7 @@ const productSchema = new Schema(
   {
     title: {
       type: String,
-      unique: [true, ERROR_MESSAGES.unique("Product title")],
+      // unique: [true, ERROR_MESSAGES.unique("Product title")],
       trim: true,
       required: [true, ERROR_MESSAGES.required("Product title")],
       minLength: [3, ERROR_MESSAGES.minLength("Product title", 3)],
@@ -50,6 +51,7 @@ const productSchema = new Schema(
         type: String,
         enum: ["fixed", "percentage"],
         required: [true, ERROR_MESSAGES.required("Discount type")],
+        default: "percentage",
       },
       value: {
         type: Number,
@@ -191,4 +193,4 @@ productSchema.pre("save", function (next) {
   next();
 });
 
-export default mongoose.models.Product || model("Product", productSchema);
+export default mongoose.models.Product || mongoose.model("Product", productSchema);
