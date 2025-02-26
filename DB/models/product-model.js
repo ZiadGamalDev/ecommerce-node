@@ -1,7 +1,9 @@
 import slugify from "slugify";
+import { Schema , model } from "mongoose";
 import mongoose, { model, Schema } from "mongoose";
 import { ERROR_MESSAGES } from "../shared/error-message.js";
 import { imageSchema } from "../shared/image-schema.js";
+import mongoose from "mongoose"
 const productSchema = new Schema(
   {
     title: {

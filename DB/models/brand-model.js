@@ -1,5 +1,5 @@
-import { Schema } from "mongoose";
-import mongoose from "mongoose ";
+import { Schema , model } from "mongoose";
+import mongoose from "mongoose";
 import slugify from "slugify";
 
 import { ERROR_MESSAGES } from "../shared/error-message.js";
@@ -8,6 +8,7 @@ const brandSchema = new Schema(
   {
     name: {
       type: String,
+      lowercase: true,
       unique: [true, ERROR_MESSAGES.unique("Brand name")],
       trim: true,
       required: [true, ERROR_MESSAGES.required("Brand name")],
@@ -52,8 +53,8 @@ const brandSchema = new Schema(
   },
   {
     timestamps: true,
-    toJSON: { virtuals: true },
-    toObject: { virtuals: true },
+    // toJSON: { virtuals: true },
+    // toObject: { virtuals: true },
   }
 );
 
