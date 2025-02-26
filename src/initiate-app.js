@@ -28,8 +28,10 @@ export const initiateApp = async (app, express) => {
   app.use("/product", routers.productRouter);
   app.use("/coupon", routers.couponRouter);
   app.use("/cart", routers.cartRouter);
+  app.use("/wishList", routers.wishListRouter);
   app.use("/tracking/product", routers.productActivityRouter);
   app.use("/tracking/search", routers.searchActivityRouter);
+  app.use("/settings", routers.settingsRouter);
 
   app.get("/", (req, res) => res.send("Hello World!"));
 
