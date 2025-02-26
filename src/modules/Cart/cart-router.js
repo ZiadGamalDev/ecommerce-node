@@ -9,21 +9,20 @@ import { systemRoles } from "../../utils/system-roles.js";
 const router = Router();
 
 router.get(
-  "/:userId",
+  "/",
   isAuth([systemRoles.USER]),
-  validationMiddleware(cartValidation.getCartSchema),
   asyncHandler(cartController.getCart)
 );
 
 router.post(
-  "/:userId",
+  "/",
   isAuth([systemRoles.USER]),
   validationMiddleware(cartValidation.addToCartSchema),
   asyncHandler(cartController.addToCart)
 );
 
 router.delete(
-  "/:userId",
+  "/",
   isAuth([systemRoles.USER]),
   validationMiddleware(cartValidation.removeFromCartSchema),
   asyncHandler(cartController.removeFromCart)

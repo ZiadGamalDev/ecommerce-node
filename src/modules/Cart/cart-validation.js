@@ -11,27 +11,9 @@ export const addToCartSchema = Joi.object({
       "any.required": "Quantity is required",
     }),
   }),
-  params: Joi.object({
-    userId: Joi.custom(objectIdValidation).required().messages({
-      "any.required": "User ID is required",
-    }),
-  }),
-});
-
-export const getCartSchema = Joi.object({
-  params: Joi.object({
-    userId: Joi.custom(objectIdValidation).required().messages({
-      "any.required": "User ID is required",
-    }),
-  }),
 });
 
 export const removeFromCartSchema = Joi.object({
-  params: Joi.object({
-    userId: Joi.custom(objectIdValidation).required().messages({
-      "any.required": "User ID is required",
-    }),
-  }),
   body: Joi.object({
     productId: Joi.custom(objectIdValidation).required().messages({
       "any.required": "Product ID is required",

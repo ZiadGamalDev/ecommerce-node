@@ -4,11 +4,12 @@ import Product from "../../../DB/models/product-model.js";
 //============================== get cart ==============================//
 export const getCart = async (req, res, next) => {
   try {
-    const { userId } = req.params;
-    const cart = await Cart.findOne({ userId }).populate("products.productId");
+    const { _id: userId } = req.user;
+
+    const cart = await Cart.findOne({ userId });
 
     if (!cart) {
-      return res.status(404).json({ message: "Cart not found" });
+      cart = new Cart({ userId, products: [] });
     }
 
     res.status(200).json({ cart });
@@ -20,7 +21,7 @@ export const getCart = async (req, res, next) => {
 //============================== add to cart ==============================//
 export const addToCart = async (req, res, next) => {
   try {
-    const { userId } = req.params;
+    const { _id: userId } = req.user;
     const { productId, quantity } = req.body;
 
     let cart = await Cart.findOne({ userId });
@@ -43,14 +44,15 @@ export const addToCart = async (req, res, next) => {
     );
 
     if (productIndex > -1) {
-      if (cart.products[productIndex].quantity + quantity > product.stock) {
+      const newQuantity = cart.products[productIndex].quantity + quantity;
+
+      if (newQuantity > product.stock) {
         return res.status(400).json({ message: "Out of Stock" });
       }
 
-      cart.products[productIndex].quantity += quantity;
+      cart.products[productIndex].quantity = newQuantity;
       cart.products[productIndex].finalPrice =
-        cart.products[productIndex].basePrice *
-        cart.products[productIndex].quantity;
+        cart.products[productIndex].basePrice * newQuantity;
     } else {
       cart.products.push({
         productId,
@@ -76,12 +78,14 @@ export const addToCart = async (req, res, next) => {
 //============================== remove from cart ==============================//
 export const removeFromCart = async (req, res, next) => {
   try {
-    const { userId } = req.params;
+    const { _id: userId } = req.user;
     const { productId } = req.body;
 
     const cart = await Cart.findOneAndUpdate(
       { userId },
-      { $pull: { products: { productId } } },
+      {
+        $pull: { products: { productId } },
+      },
       { new: true }
     );
 
@@ -93,7 +97,6 @@ export const removeFromCart = async (req, res, next) => {
       (sum, item) => sum + item.finalPrice,
       0
     );
-
     await cart.save();
 
     res.status(200).json({ message: "Item removed from cart", cart });

@@ -64,7 +64,7 @@ wishListSchema.pre("save", async function (next) {
       if (!product) {
         throw new Error(ERROR_MESSAGES.invalid("Product reference"));
       }
-      if (product.stock <= 0) {
+      if (product.stock < 1) {
         throw new Error(
           `Product: ${item.title} is out of stock and cannot be added to wishlist.`
         );
@@ -76,7 +76,7 @@ wishListSchema.pre("save", async function (next) {
   }
 });
 
-wishListSchema.index({ userId: 1, "products.productId": 1 });
+wishListSchema.index({ userId: 1, "products.productId": 1 }, { unique: true, sparse: true });
 
 // Export the model
 export default mongoose.models.WishList ||
