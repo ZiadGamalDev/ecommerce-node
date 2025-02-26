@@ -23,5 +23,5 @@ export {
   settingsRouter,
   wishListRouter,
   reviewRouter,
+  brandRouter
 };
-export { authRouter, categoryRouter, cartRouter, productActivityRouter, searchActivityRouter , brandRouter };

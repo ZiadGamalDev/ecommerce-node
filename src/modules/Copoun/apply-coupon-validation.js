@@ -1,6 +1,6 @@
 import { DateTime } from "luxon";
-import Coupon from "../../DB/Models/coupon.model.js";
-import CouponUsers from "../../DB/Models/coupon-users.model.js";
+import Coupon from "../../../DB/models/copoun-model.js";
+import CouponUsers from "../../../DB/models/coupon-user-model.js";
 
 export const couponValidation = async (couponCode, userId) => {
   //couponCode check
