@@ -8,6 +8,7 @@ const categorySchema = new Schema(
   {
     name: {
       type: String,
+      lowercase: true,
       unique: [true, ERROR_MESSAGES.unique("Category name")],
       trim: true,
       required: [true, ERROR_MESSAGES.required("Category name")],

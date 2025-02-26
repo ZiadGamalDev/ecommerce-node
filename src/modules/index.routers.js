@@ -3,5 +3,6 @@ import categoryRouter from "./Category/category-router.js";
 import cartRouter from "./Cart/cart-router.js";
 import productActivityRouter from "./product-activity/product-activity-router.js";
 import searchActivityRouter from "./search-activity/search-activity-router.js";
+import brandRouter from "./Brand/brand-router.js"
 
-export { authRouter, categoryRouter, cartRouter, productActivityRouter, searchActivityRouter };
+export { authRouter, categoryRouter, cartRouter, productActivityRouter, searchActivityRouter , brandRouter };

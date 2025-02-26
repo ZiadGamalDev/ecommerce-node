@@ -5,6 +5,7 @@ import { globalResponse } from "./Middlewares/gloabl-response.js";
 import * as routers from "../src/modules/index.routers.js";
 import { rollBackSavedDocuments } from "./Middlewares/rollback-saved-docs.js";
 import Category from "../DB/models/category-model.js";
+import Brand from "../DB/models/brand-model.js"
 
 export const initiateApp = async (app, express) => {
   const port = process.env.PORT;
@@ -28,6 +29,8 @@ export const initiateApp = async (app, express) => {
   app.use("/cart", routers.cartRouter);
   app.use("/tracking/product", routers.productActivityRouter);
   app.use("/tracking/search", routers.searchActivityRouter);
+  app.use("/brand",routers.brandRouter)
+
 
   app.get("/", (req, res) => res.send("Hello World!"));
 
