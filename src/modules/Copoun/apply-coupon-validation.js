@@ -1,6 +1,6 @@
 import { DateTime } from "luxon";
-import Coupon from "../../DB/Models/coupon.model.js";
-import CouponUsers from "../../DB/Models/coupon-users.model.js";
+import CouponUser from "../../../DB/models/coupon-user-model.js";
+import Coupon from "../../../DB/models/coupon-model.js";
 
 export const couponValidation = async (couponCode, userId) => {
   //couponCode check
@@ -19,7 +19,7 @@ export const couponValidation = async (couponCode, userId) => {
     return { message: "Coupon is not started yet", status: 400 };
 
   // user assgined to coupon or not
-  const isUserAssigned = await CouponUsers.findOne({
+  const isUserAssigned = await CouponUser.findOne({
     couponId: coupon._id,
     userId,
   });

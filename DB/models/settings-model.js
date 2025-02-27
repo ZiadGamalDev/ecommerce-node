@@ -1,7 +1,7 @@
 import { Schema, model } from "mongoose";
 
 const settingsSchema = new Schema({
-  key: { type: String, required: true, unique: true },
+  key: { type: String, required: true, unique: true, index: true },
   value: { type: Schema.Types.Mixed, required: true },
 });
 

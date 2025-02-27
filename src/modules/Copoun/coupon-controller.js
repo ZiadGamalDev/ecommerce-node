@@ -1,4 +1,4 @@
-import copounModel from "../../../DB/models/copoun-model.js";
+import copounModel from "../../../DB/models/coupon-model.js";
 import couponUserModel from "../../../DB/models/coupon-user-model.js";
 import userModel from "../../../DB/models/user-model.js";
 import { couponValidation } from "./apply-coupon-validation.js";
