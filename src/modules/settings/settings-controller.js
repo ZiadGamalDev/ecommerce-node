@@ -31,3 +31,5 @@ export const saveSettings = async (req, res, next) => {
     res.status(500).json({ message: "Error saving settings", error: error.message });
   }
 };
+
+
