@@ -1,8 +1,8 @@
-import brandModel from "../../../DB/models/brand-model";
-import { systemRoles } from "./../../utils/system-roles";
-import generateUniqurString from "./../../utils/generate-unique-string";
-import cloudinary from "../../utils/cloudinary";
-import productModel from "../../../DB/models/product-model";
+import brandModel from "../../../DB/models/brand-model.js";
+import { systemRoles } from "./../../utils/system-roles.js";
+import generateUniqurString from "./../../utils/generate-unique-string.js";
+import cloudinary from "../../utils/cloudinary.js";
+import productModel from "../../../DB/models/product-model.js";
 
 export const addproduct = async (req, res, next) => {
   const {

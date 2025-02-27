@@ -1,4 +1,5 @@
 import SearchActivity from "../../../DB/models/search-activity-model.js";
+import eventEmitter from "../../events/event-emitter.js";
 
 export const getSearchActivities = async (req, res, next) => {
   try {
@@ -20,6 +21,8 @@ export const recordSearch = async (req, res, next) => {
 
     const activity = new SearchActivity({ userId, searchQuery });
     await activity.save();
+
+    eventEmitter.emit("searchActivity", activity);
 
     res.status(201).json({ message: "Search activity recorded successfully", data: activity });
   } catch (error) {
