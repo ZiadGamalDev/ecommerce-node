@@ -54,6 +54,10 @@ export const signUp = {
       "number.integer": "Age must be a whole number",
     }),
 
+    role: Joi.string()
+      .valid("user", "admin")
+      .messages({ "any.only": "Role must be either 'user' or 'admin'" }),
+
     addresses: Joi.array()
       .items(
         Joi.string().min(10).max(200).messages({

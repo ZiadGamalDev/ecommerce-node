@@ -12,7 +12,7 @@ import * as brandValidation from "./brand-validation.js";
 const router = Router()
 router.post(
     "/:categoryId",
-    isAuth([systemRoles.USER]),
+    isAuth([systemRoles.ADMIN]),
     multerMiddleHost(allowedExtensions.image).single("image"),
     validationMiddleware(brandValidation.addBrandSchema),
     asyncHandler(brandController.addBrand)
@@ -20,7 +20,7 @@ router.post(
 
 router.put(
     "/:brandId",
-    isAuth([systemRoles.USER]),
+    isAuth([systemRoles.ADMIN]),
     multerMiddleHost(allowedExtensions.image).single("image"),
     validationMiddleware(brandValidation.updateBrandSchema),
     asyncHandler(brandController.updateBrand)

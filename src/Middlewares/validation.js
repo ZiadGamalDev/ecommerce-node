@@ -8,6 +8,7 @@ const reqKeys = ["query", "body", "params", "headers"];
  */
 export const validationMiddleware = (schema) => {
   return (req, res, next) => {
+   
     let validationErrorArr = [];
     for (const key of reqKeys) {
       const validationResult = schema[key]?.validate(req[key], {

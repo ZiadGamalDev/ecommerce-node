@@ -6,7 +6,7 @@ import * as routers from "../src/modules/index.routers.js";
 import { rollBackSavedDocuments } from "./Middlewares/rollback-saved-docs.js";
 import Category from "../DB/models/category-model.js";
 import { rollbackUploadedFiles } from "./Middlewares/rollback-uploaded-files.js";
-import Brand from "../DB/models/brand-model.js"
+import Brand from "../DB/models/brand-model.js";
 
 export const initiateApp = async (app, express) => {
   const port = process.env.PORT;
@@ -29,13 +29,13 @@ export const initiateApp = async (app, express) => {
   app.use("/product", routers.productRouter);
   app.use("/coupon", routers.couponRouter);
   app.use("/cart", routers.cartRouter);
+  app.use("/order", routers.orderRouter);
   app.use("/wishList", routers.wishListRouter);
   app.use("/tracking/product", routers.productActivityRouter);
   app.use("/tracking/search", routers.searchActivityRouter);
   app.use("/settings", routers.settingsRouter);
   app.use("/review", routers.reviewRouter);
-  app.use("/brand",routers.brandRouter)
-
+  app.use("/brand", routers.brandRouter);
 
   app.get("/", (req, res) => res.send("Hello World!"));
 
