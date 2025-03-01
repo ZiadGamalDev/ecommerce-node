@@ -1,7 +1,8 @@
 import jwt from "jsonwebtoken";
 import User from "../../DB/models/user-model.js";
+import { systemRoles } from "../utils/system-roles.js";
 
-export const isAuth = (roles) => {
+export const isAuth = (roles=[systemRoles.USER]) => {
   return async (req, res, next) => {
     try {
       //get token
@@ -32,7 +33,7 @@ export const isAuth = (roles) => {
 
       //check access
 
-      if (!roles.includes(user.role)) {
+      if (!roles?.includes(user.role)) {
         return next(new Error("Unauthorized"), { cause: 401 });
       }
 

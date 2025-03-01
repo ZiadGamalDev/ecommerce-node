@@ -1,5 +1,5 @@
 import Joi from "joi";
-// import { generalValidationRule } from "../../utils/general-validation-rule.js";
+import { generalValidationRule } from "../../utils/custome-validation.js";
 
 export const addProductSchema = {
   body: Joi.object({
@@ -39,20 +39,21 @@ export const addProductSchema = {
       .messages({ "number.max": "Discount percentage cannot exceed 100%" })
       .default(0),
 
-    specs: Joi.object()
-      .required()
-      .messages({ "any.required": "Product specifications are required" })
-      .pattern(
-        Joi.string(), // Key pattern (any string)
-        Joi.alternatives().try(
-          Joi.string(),
-          Joi.number(),
-          Joi.boolean(),
-          Joi.array().items(Joi.string(), Joi.number(), Joi.boolean())
-        ) // Value pattern
-      )
-      .messages({ "object.base": "Specifications must be a valid object/map" }),
-
+    // specs: Joi.array()
+    //   .required()
+    //   .messages({ "any.required": "Product specifications are required" })
+    //   .items(
+    //     Joi.object().pattern(
+    //       Joi.string(),
+    //       Joi.alternatives().try(
+    //         Joi.string(),
+    //         Joi.number(),
+    //         Joi.boolean(),
+    //         Joi.array().items(Joi.string(), Joi.number(), Joi.boolean())
+    //       )
+    //     )
+    //   )
+    //   .messages({ "array.base": "Specifications must be a valid array" }),
     description: Joi.string()
       .required()
       .messages({ "any.required": "Product description is required" })
@@ -124,6 +125,9 @@ export const updateProductSchema = {
     }),
 
     oldPublicId: Joi.string(),
+
+    category: generalValidationRule.dbId.message("Invalid category ID"),
+    brand: generalValidationRule.dbId.message("Invalid brand ID"),
   })
     .min(1)
     .messages({
