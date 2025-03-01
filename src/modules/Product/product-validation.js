@@ -63,15 +63,15 @@ export const addProductSchema = {
       }),
   }),
 
-  params: Joi.object({
-    categoryId: generalValidationRule.dbId
-      .required()
-      .messages({ "any.required": "Category ID is required" }),
+  // params: Joi.object({
+  //   categoryId: generalValidationRule.dbId
+  //     .required()
+  //     .messages({ "any.required": "Category ID is required" }),
 
-    brandId: generalValidationRule.dbId
-      .required()
-      .messages({ "any.required": "Brand ID is required" }),
-  }),
+  //   brandId: generalValidationRule.dbId
+  //     .required()
+  //     .messages({ "any.required": "Brand ID is required" }),
+  // }),
 
   files: Joi.array()
     .min(1)
@@ -134,11 +134,11 @@ export const updateProductSchema = {
       "object.min": "At least one field must be provided for update",
     }),
 
-  params: Joi.object({
-    productId: generalValidationRule.dbId
-      .required()
-      .messages({ "any.required": "Product ID is required" }),
-  }),
+  // params: Joi.object({
+  //   productId: generalValidationRule.dbId
+  //     .required()
+  //     .messages({ "any.required": "Product ID is required" }),
+  // }),
 
   file: Joi.object().when("body.oldPublicId", {
     is: Joi.exist(),

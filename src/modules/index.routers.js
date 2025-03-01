@@ -2,7 +2,6 @@ import authRouter from "./Auth/auth-router.js";
 import categoryRouter from "./Category/category-router.js";
 import brandRouter from "./Brand/brand-router.js";
 import productRouter from "./Product/product-router.js";
-
 import couponRouter from "./Copoun/coupon-router.js";
 import cartRouter from "./Cart/cart-router.js";
 
@@ -26,4 +25,5 @@ export {
   settingsRouter,
   wishListRouter,
   reviewRouter,
+  brandRouter,
 };

@@ -1,5 +1,5 @@
 import slugify from "slugify";
-
+import { Schema , model } from "mongoose";
 import mongoose, { model, Schema } from "mongoose";
 import { ERROR_MESSAGES } from "../shared/error-message.js";
 import { imageSchema } from "../shared/image-schema.js";
@@ -193,5 +193,4 @@ productSchema.pre("save", function (next) {
   next();
 });
 
-export default mongoose.models.Product ||
-  mongoose.model("Product", productSchema);
+export default mongoose.models.Product || mongoose.model("Product", productSchema);

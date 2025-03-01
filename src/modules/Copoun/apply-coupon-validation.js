@@ -26,6 +26,7 @@ export const couponValidation = async (couponCode, userId) => {
       status: 400,
     };
   }
+ 
 
   // If this is a user-specific coupon, check user assignment
   if (coupon.isForSpecificUsers) {
