@@ -15,7 +15,6 @@ import reviewRouter from "./Review/review-router.js";
 export {
   authRouter,
   categoryRouter,
-  brandRouter,
   productRouter,
   couponRouter,
   cartRouter,
