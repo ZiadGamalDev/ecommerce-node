@@ -36,6 +36,7 @@ export const initiateApp = async (app, express) => {
   app.use("/settings", routers.settingsRouter);
   app.use("/review", routers.reviewRouter);
   app.use("/brand", routers.brandRouter);
+  app.use("/profile", routers.profileRouter);
 
   app.get("/", (req, res) => res.send("Hello World!"));
 
