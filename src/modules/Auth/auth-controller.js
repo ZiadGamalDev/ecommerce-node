@@ -90,14 +90,18 @@ export const verifyEmail = async (req, res, next) => {
 export const logIn = async (req, res, next) => {
   const { email, password } = req.body;
   // get user by email
-  const user = await User.findOne({ email, isEmailVerified: true });
+  const user = await User.findOne({ email });
   if (!user) {
-    return next(new Error("Invalid login credentails", { cause: 404 }));
+    return next(new Error("Invalid login credentials", { cause: 404 }));
+  }
+  // check if email is verified
+  if (!user.isEmailVerified) {
+    return next(new Error("Please verify your email first", { cause: 400 }));
   }
   // check password
   const isPasswordValid = bcrypt.compareSync(password, user.password);
   if (!isPasswordValid) {
-    return next(new Error("Invalid login credentails", { cause: 404 }));
+    return next(new Error("Invalid login credentials", { cause: 404 }));
   }
 
   // generate login token
@@ -337,3 +341,13 @@ export const resetPassword = async (req, res, next) => {
 //         data: newUser
 //     })
 // }
+
+export const logout = async (req, res, next) => {
+  const { user } = req;
+  user.isLoggedIn = false;
+  await user.save();
+  res.status(200).json({
+    success: true,
+    message: "User logged out successfully",
+  });
+};

@@ -3,6 +3,8 @@ import * as authController from "./auth-controller.js";
 import * as authValidation from "./auth-validation.js";
 import { validationMiddleware } from "../../Middlewares/validation.js";
 import { asyncHandler } from "../../Middlewares/async-handler.js";
+import { systemRoles } from "../../utils/system-roles.js";
+import { isAuth } from "../../Middlewares/isAuth.js";
 
 const router = Router();
 
@@ -34,4 +36,11 @@ router.put(
   validationMiddleware(authValidation.resetPassword),
   asyncHandler(authController.resetPassword)
 );
+
+router.post(
+  "/logout",
+  isAuth([systemRoles.USER]),
+  asyncHandler(authController.logout)
+);
+
 export default router;
