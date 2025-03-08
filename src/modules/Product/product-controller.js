@@ -11,7 +11,7 @@ export const addproduct = async (req, res, next) => {
     stock,
     discountType,
     discountValue,
-    specs,
+   // specs,
     description,
   } = req.body;
 
@@ -66,7 +66,7 @@ export const addproduct = async (req, res, next) => {
     discount: { type: discountType, value: discountValue },
     basePrice: baseprice,
     appliedPrice: appliedPrice,
-    specs: specs,
+    // specs: JSON.parse(specs),
     category: categoryId,
     brand: brandId,
     images,
@@ -94,14 +94,15 @@ export const updateProduct = async (req, res, next) => {
     basePrice,
     discountType,
     discountValue,
-
+    category,
+    brand,
     description,
     oldPublicId,
   } = req.body;
   // data for condition
   const { productId } = req.params;
   // data from the request authUser
-  const addedBy = req.user._id;
+  const updatedBy = req.user._id;
 
   // prodcuct Id
   const product = await productModel.findById(productId);
@@ -110,7 +111,7 @@ export const updateProduct = async (req, res, next) => {
   // who will be authorized to update a product
   if (
     req.user.role !== systemRoles.ADMIN &&
-    product.addedBy.toString() !== addedBy.toString()
+    product.addedBy.toString() !== updatedBy.toString()
   )
     return next({
       cause: 403,
@@ -164,16 +165,16 @@ export const updateProduct = async (req, res, next) => {
     req.folder = folderPath + `${product.folderId}`;
   }
 
+  product.updatedBy = updatedBy;
+  product.category = category || product.category;
+  product.brand = brand || product.brand;
   await product.save();
 
-  res
-    .status(200)
-    .json({
-      success: true,
-      message: "Product updated successfully",
-      data: product,
-    });
+  res.status(200).json({
+    success: true,
+    message: "Product updated successfully",
+    data: product,
+  });
 };
-
 
 //TODO: seperate uploading/updating logic

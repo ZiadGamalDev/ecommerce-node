@@ -10,20 +10,20 @@ const router = Router();
 
 router.get(
   "/",
-  isAuth([systemRoles.USER]),
+  isAuth([systemRoles.USER, systemRoles.ADMIN]),
   asyncHandler(cartController.getCart)
 );
 
 router.post(
   "/",
-  isAuth([systemRoles.USER]),
+  isAuth([systemRoles.USER, systemRoles.ADMIN]),
   validationMiddleware(cartValidation.addToCartSchema),
   asyncHandler(cartController.addToCart)
 );
 
-router.delete(
+router.put(
   "/",
-  isAuth([systemRoles.USER]),
+  isAuth([systemRoles.USER, systemRoles.ADMIN]),
   validationMiddleware(cartValidation.removeFromCartSchema),
   asyncHandler(cartController.removeFromCart)
 );

@@ -33,10 +33,24 @@ const couponSchema = new mongoose.Schema(
       type: String,
       required: true,
     },
+
+    usageCount: {
+      type: Number,
+      default: 0,
+      min: 0,
+    },
+    maxUsage: {
+      type: Number,
+      default: null, // null means unlimited uses
+    },
+    isForSpecificUsers: {
+      type: Boolean,
+      default: false, // false means it's a general coupon
+    },
     addedBy: {
       type: mongoose.Schema.Types.ObjectId,
       ref: "User",
-      required: true,
+      required: false,
     },
     updatedBy: {
       type: mongoose.Schema.Types.ObjectId,

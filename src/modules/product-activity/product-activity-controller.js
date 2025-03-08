@@ -1,4 +1,5 @@
 import ProductActivity from "../../../DB/models/product-activity-model.js";
+import eventEmitter from "../../events/event-emitter.js";
 
 export const getActivities = async (req, res, next) => {
   try {
@@ -24,6 +25,8 @@ export const recordActivity = async (req, res, next) => {
 
     const activity = new ProductActivity({ userId, productId, duration, price, action });
     await activity.save();
+
+    eventEmitter.emit("productActivity", activity);
 
     res.status(201).json({ message: "Product activity recorded successfully", data: activity});
   } catch (error) {
