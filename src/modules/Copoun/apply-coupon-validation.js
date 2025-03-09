@@ -1,5 +1,4 @@
 import { DateTime } from "luxon";
-
 import couponUserModel from "../../../DB/models/coupon-user-model.js";
 import copounModel from "../../../DB/models/coupon-model.js";
 

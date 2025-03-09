@@ -15,6 +15,7 @@ export const isAuth = (roles=[systemRoles.USER]) => {
 
       //check prefix
       if (!accesstoken.startsWith(process.env.TOKEN_PREFIX)) {
+        console.log(process.env.TOKEN_PREFIX)
         return next(new Error("Invalid accesstoken prefix"), { cause: 400 });
       }
 
