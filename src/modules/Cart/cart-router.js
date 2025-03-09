@@ -21,8 +21,8 @@ router.post(
   asyncHandler(cartController.addToCart)
 );
 
-router.put(
-  "/",
+router.delete(
+  "/:productId",
   isAuth([systemRoles.USER, systemRoles.ADMIN]),
   validationMiddleware(cartValidation.removeFromCartSchema),
   asyncHandler(cartController.removeFromCart)

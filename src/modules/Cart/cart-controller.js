@@ -85,13 +85,11 @@ export const addToCart = async (req, res, next) => {
 export const removeFromCart = async (req, res, next) => {
   try {
     const { _id: userId } = req.user;
-    const { productId } = req.body;
+    const { productId } = req.params;
 
     const cart = await Cart.findOneAndUpdate(
       { userId },
-      {
-        $pull: { products: { productId } },
-      },
+      { $pull: { products: { productId } } },
       { new: true }
     );
 
@@ -99,11 +97,13 @@ export const removeFromCart = async (req, res, next) => {
       return res.status(404).json({ message: "Cart not found" });
     }
 
-    cart.subTotal = cart.products.reduce(
+    const updatedCart = await Cart.findOne({ userId });
+
+    updatedCart.subTotal = updatedCart.products.reduce(
       (sum, item) => sum + item.finalPrice,
       0
     );
-    await cart.save();
+    await updatedCart.save();
 
     res.status(200).json({ message: "Item removed from cart", cart });
   } catch (error) {

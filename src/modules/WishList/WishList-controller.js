@@ -32,11 +32,11 @@ export const addToWishList = async (req, res, next) => {
     if (product.stock <= 0)
       return res.status(400).json({ message: "Product is out of stock" });
 
-    if (
-      wishlist.products.some((item) => item.productId.toString() === productId)
-    ) {
+    const isProductExist = wishlist.products.find((item) =>
+      item.productId.equals(productId)
+    );
+    if (isProductExist)
       return res.status(400).json({ message: "Product already in wishlist" });
-    }
 
     wishlist.products.push({
       productId,
@@ -57,7 +57,7 @@ export const addToWishList = async (req, res, next) => {
 export const removeFromWishList = async (req, res, next) => {
   try {
     const { _id: userId } = req.user;
-    const { productId } = req.body;
+    const { productId } = req.params;
 
     const wishlist = await WishList.findOneAndUpdate(
       { userId },

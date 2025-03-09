@@ -14,9 +14,9 @@ export const addToCartSchema = Joi.object({
 });
 
 export const removeFromCartSchema = Joi.object({
-  body: Joi.object({
+  params: Joi.object({
     productId: Joi.custom(objectIdValidation).required().messages({
       "any.required": "Product ID is required",
     }),
   }),
-});
+}).unknown(true);
