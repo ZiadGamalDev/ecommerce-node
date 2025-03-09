@@ -26,4 +26,12 @@ router.put(
   asyncHandler(productController.updateProduct)
 );
 
+router.get(
+  "/:productId",
+  isAuth([systemRoles.ADMIN, systemRoles.USER]),
+
+  asyncHandler(productController.getProductById)
+);
+
+router.get("/", asyncHandler(productController.getAllProducts));
 export default router;
