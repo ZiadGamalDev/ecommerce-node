@@ -24,21 +24,21 @@ export const updateProfile = async (req, res, next) => {
 
     if (username) {
       user.username = username;
-      if (await checkUnique('username', username, user._id)) {
+      if (await checkUnique("username", username, user._id)) {
         return res.status(400).json({ message: "Username already exists" });
       }
     }
 
     if (email) {
       user.email = email;
-      if (await checkUnique('email', email, user._id)) {
+      if (await checkUnique("email", email, user._id)) {
         return res.status(400).json({ message: "Email already exists" });
       }
     }
 
     if (phoneNumbers) {
       user.phoneNumbers = phoneNumbers;
-      if (await checkUnique('phoneNumbers', { $in: phoneNumbers }, user._id)) {
+      if (await checkUnique("phoneNumbers", { $in: phoneNumbers }, user._id)) {
         return res.status(400).json({ message: "Phone number already exists" });
       }
     }
@@ -54,4 +54,18 @@ export const updateProfile = async (req, res, next) => {
   } catch (error) {
     res.status(500).json({ message: error.message });
   }
+};
+
+export const getuserByEmail = async (req, res, next) => {
+  const { email } = req.params;
+
+  const user = await User.findOne({ email: email });
+
+  if (!user) {
+    return next({ cause: 404, message: "User not found" });
+  }
+
+  return res
+    .status(200)
+    .json({ success: true, message: "User found", data: user });
 };

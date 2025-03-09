@@ -130,7 +130,7 @@ export const updateProduct = async (req, res, next) => {
   // prices changes
   const appliedPrice =
     (basePrice || product.basePrice) *
-    (1 - (discountValue || product.discount) / 100);
+    (1 - (discountValue || product.discount.value) / 100);
   product.appliedPrice = appliedPrice;
 
   if (basePrice) product.basePrice = basePrice;
