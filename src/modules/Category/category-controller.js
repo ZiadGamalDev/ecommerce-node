@@ -113,24 +113,35 @@ export const updateCategory = async (req, res, next) => {
 
 //============================== get all categories ==============================//
 export const getAllCategories = async (req, res, next) => {
-  // nested populate
-  const categories = await categoryModel.find().populate([
-    {
-      path: "subcategories",
-      path: "brands",
-      populate: [
-        {
-          path: "Brands",
-        },
-      ],
-    },
-  ]);
-  // console.log(categories);
-  res.status(200).json({
-    success: true,
-    message: "Categories fetched successfully",
-    data: categories,
-  });
+  try {
+    // Properly structured populate for nested relationships
+    const categories = await categoryModel.find().populate([
+      {
+        // Populate addedBy with selected user fields
+        path: "addedBy",
+        select: "username email role",
+      },
+      {
+        // Populate updatedBy if it exists
+        path: "updatedBy",
+        select: "userName email role",
+      },
+      {
+        // Populate brands directly related to category
+        path: "brands",
+        select: "name logo",
+      },
+    ]);
+
+    return res.status(200).json({
+      success: true,
+      message: "Categories fetched successfully",
+      count: categories.length,
+      data: categories,
+    });
+  } catch (error) {
+    return next(error);
+  }
 };
 
 export const getCategoryById = async (req, res, next) => {
