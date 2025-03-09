@@ -6,7 +6,7 @@ import cloudinary from "../../utils/cloudinary.js";
 //============================== add category ==============================//
 export const addCategory = async (req, res, next) => {
   // 1- destructuring the request body
-  const { name } = req.body;
+  const { name, description } = req.body;
   const { _id } = req.user;
   console.log(name);
   // 2- check if the category name is already exist
@@ -31,6 +31,7 @@ export const addCategory = async (req, res, next) => {
   // 5- generate the categroy object
   const category = {
     name,
+    description,
     image: { secure_url: secure_url, public_id: public_id },
     folderId,
     addedBy: _id,
