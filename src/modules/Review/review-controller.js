@@ -5,7 +5,14 @@ import Product from "../../../DB/models/product-model.js";
 export const getReviews = async (req, res, next) => {
   try {
     const { productId } = req.params;
-    const reviews = await Review.find({ productId });
+    if (!mongoose.Types.ObjectId.isValid(productId)) {
+      return res.status(400).json({ message: "Invalid productId format" });
+    }
+
+    const reviews = await Review.find({
+      productId: new mongoose.Types.ObjectId(productId),
+    });
+
     res.status(200).json({ reviews });
   } catch (error) {
     next(error);

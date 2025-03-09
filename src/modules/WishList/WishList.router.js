@@ -22,9 +22,9 @@ router.post(
 );
 
 router.delete(
-  "/",
+  "/:productId",
   isAuth([systemRoles.USER]),
-  validationMiddleware(wishListSchema),
+  validationMiddleware({ params: wishListSchema }),
   asyncHandler(wishListController.removeFromWishList)
 );
 
