@@ -11,7 +11,7 @@ export const addproduct = async (req, res, next) => {
     stock,
     discountType,
     discountValue,
-   // specs,
+    // specs,
     description,
   } = req.body;
 
@@ -130,7 +130,7 @@ export const updateProduct = async (req, res, next) => {
   // prices changes
   const appliedPrice =
     (basePrice || product.basePrice) *
-    (1 - (discountValue || product.discount) / 100);
+    (1 - (discountValue || product.discount.value) / 100);
   product.appliedPrice = appliedPrice;
 
   if (basePrice) product.basePrice = basePrice;
@@ -177,4 +177,36 @@ export const updateProduct = async (req, res, next) => {
   });
 };
 
+export const getProductById = async (req, res, next) => {
+  const { productId } = req.params;
+
+  const product = await productModel
+    .findById(productId)
+    .populate({ path: "brand", select: "name logo" })
+    .populate({ path: "category", select: "name image" })
+    .populate({ path: "addedBy", select: "username email" });
+
+  if (!product) return next({ cause: 404, message: "Product not found" });
+
+  res.status(200).json({
+    success: true,
+    message: "Product retrieved successfully",
+    data: product,
+  });
+};
+
+export const getAllProducts = async (req, res, next) => {
+  const products = await productModel
+    .find({})
+    .populate({ path: "brand", select: "name logo" })
+    .populate({ path: "category", select: "name image" })
+    .populate({ path: "addedBy", select: "username email" })
+    .sort({ createdAt: -1 });
+
+  res.status(200).json({
+    success: true,
+    message: "Products retrieved successfully",
+    data: products,
+  });
+};
 //TODO: seperate uploading/updating logic

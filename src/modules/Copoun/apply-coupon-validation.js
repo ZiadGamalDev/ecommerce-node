@@ -3,7 +3,6 @@ import couponUserModel from "../../../DB/models/coupon-user-model.js";
 import copounModel from "../../../DB/models/coupon-model.js";
 
 
-
 export const couponValidation = async (couponCode, userId) => {
   //couponCode check
   const coupon = await copounModel.findOne({ couponCode });
