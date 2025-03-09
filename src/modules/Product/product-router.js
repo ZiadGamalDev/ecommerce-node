@@ -13,7 +13,7 @@ const router = Router();
 router.post(
   "/:categoryId/:brandId",
   isAuth([systemRoles.ADMIN]),
-  multerMiddleHost(allowedExtensions.image).array("images", 5),
+  multerMiddleHost(allowedExtensions.image).array("files", 5),
   validationMiddleware(productvalidation.addProductSchema),
   asyncHandler(productController.addproduct)
 );
@@ -21,7 +21,7 @@ router.post(
 router.put(
   "/:productId",
   isAuth([systemRoles.ADMIN]),
-  multerMiddleHost(allowedExtensions.image).array("images", 5),
+  multerMiddleHost(allowedExtensions.image).array("files", 5),
   validationMiddleware(productvalidation.updateProductSchema),
   asyncHandler(productController.updateProduct)
 );

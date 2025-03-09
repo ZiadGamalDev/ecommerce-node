@@ -11,7 +11,7 @@ export const addProductSchema = {
       .max(100)
       .messages({ "string.max": "Title cannot exceed 100 characters" }),
 
-    baseprice: Joi.number()
+    basePrice: Joi.number() // Fixed variable name from baseprice to basePrice
       .required()
       .messages({ "any.required": "Base price is required" })
       .positive()
@@ -35,25 +35,31 @@ export const addProductSchema = {
     discountValue: Joi.number()
       .min(0)
       .messages({ "number.min": "Discount value cannot be negative" })
-      .max(100)
-      .messages({ "number.max": "Discount percentage cannot exceed 100%" })
+      .when("discountType", {
+        // Added conditional validation
+        is: "percentage",
+        then: Joi.number().max(100).messages({
+          "number.max": "Discount percentage cannot exceed 100%",
+        }),
+      })
       .default(0),
 
-    // specs: Joi.array()
-    //   .required()
-    //   .messages({ "any.required": "Product specifications are required" })
-    //   .items(
-    //     Joi.object().pattern(
-    //       Joi.string(),
-    //       Joi.alternatives().try(
-    //         Joi.string(),
-    //         Joi.number(),
-    //         Joi.boolean(),
-    //         Joi.array().items(Joi.string(), Joi.number(), Joi.boolean())
-    //       )
-    //     )
-    //   )
-    //   .messages({ "array.base": "Specifications must be a valid array" }),
+    // Uncommented the specs validation but made it optional
+    specs: Joi.array()
+      .optional()
+      .items(
+        Joi.object().pattern(
+          Joi.string(),
+          Joi.alternatives().try(
+            Joi.string(),
+            Joi.number(),
+            Joi.boolean(),
+            Joi.array().items(Joi.string(), Joi.number(), Joi.boolean())
+          )
+        )
+      )
+      .messages({ "array.base": "Specifications must be a valid array" }),
+
     description: Joi.string()
       .required()
       .messages({ "any.required": "Product description is required" })
@@ -63,15 +69,15 @@ export const addProductSchema = {
       }),
   }),
 
-  // params: Joi.object({
-  //   categoryId: generalValidationRule.dbId
-  //     .required()
-  //     .messages({ "any.required": "Category ID is required" }),
+  params: Joi.object({
+    categoryId: generalValidationRule.dbId
+      .required()
+      .messages({ "any.required": "Category ID is required" }),
 
-  //   brandId: generalValidationRule.dbId
-  //     .required()
-  //     .messages({ "any.required": "Brand ID is required" }),
-  // }),
+    brandId: generalValidationRule.dbId
+      .required()
+      .messages({ "any.required": "Brand ID is required" }),
+  }),
 
   files: Joi.array()
     .min(1)
@@ -87,18 +93,6 @@ export const updateProductSchema = {
       .messages({ "string.min": "Title must be at least 3 characters long" })
       .max(100)
       .messages({ "string.max": "Title cannot exceed 100 characters" }),
-
-    specs: Joi.object()
-      .pattern(
-        Joi.string(), // Key pattern (any string)
-        Joi.alternatives().try(
-          Joi.string(),
-          Joi.number(),
-          Joi.boolean(),
-          Joi.array().items(Joi.string(), Joi.number(), Joi.boolean())
-        ) // Value pattern
-      )
-      .messages({ "object.base": "Specifications must be a valid object/map" }),
 
     stock: Joi.number()
       .integer()
@@ -117,14 +111,33 @@ export const updateProductSchema = {
     discountValue: Joi.number()
       .min(0)
       .messages({ "number.min": "Discount value cannot be negative" })
-      .max(100)
-      .messages({ "number.max": "Discount percentage cannot exceed 100%" }),
+      .when("discountType", {
+        // Added conditional validation
+        is: "percentage",
+        then: Joi.number().max(100).messages({
+          "number.max": "Discount percentage cannot exceed 100%",
+        }),
+      }),
 
     description: Joi.string().min(10).messages({
       "string.min": "Description must be at least 10 characters long",
     }),
 
     oldPublicId: Joi.string(),
+
+    specs: Joi.array() // Added specs to updateProductSchema
+      .optional()
+      .items(
+        Joi.object().pattern(
+          Joi.string(),
+          Joi.alternatives().try(
+            Joi.string(),
+            Joi.number(),
+            Joi.boolean(),
+            Joi.array().items(Joi.string(), Joi.number(), Joi.boolean())
+          )
+        )
+      ),
 
     category: generalValidationRule.dbId.message("Invalid category ID"),
     brand: generalValidationRule.dbId.message("Invalid brand ID"),
@@ -134,11 +147,11 @@ export const updateProductSchema = {
       "object.min": "At least one field must be provided for update",
     }),
 
-  // params: Joi.object({
-  //   productId: generalValidationRule.dbId
-  //     .required()
-  //     .messages({ "any.required": "Product ID is required" }),
-  // }),
+  params: Joi.object({
+    productId: generalValidationRule.dbId
+      .required()
+      .messages({ "any.required": "Product ID is required" }),
+  }),
 
   file: Joi.object().when("body.oldPublicId", {
     is: Joi.exist(),
