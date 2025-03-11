@@ -17,29 +17,6 @@ const wishListSchema = new mongoose.Schema(
             ref: "Product",
             required: [true, ERROR_MESSAGES.required("Product ID")],
           },
-          title: {
-            type: String,
-            required: [true, ERROR_MESSAGES.required("Product title")],
-            trim: true,
-            minLength: [3, ERROR_MESSAGES.minLength("Product title", 3)],
-            maxLength: [100, ERROR_MESSAGES.maxLength("Product title", 100)],
-          },
-          description: {
-            type: String,
-            trim: true,
-            required: [true, ERROR_MESSAGES.required("Product description")],
-            minLength: [3, ERROR_MESSAGES.minLength("Product description", 3)],
-            maxLength: [
-              500,
-              ERROR_MESSAGES.maxLength("Product description", 500),
-            ],
-          },
-          stock: {
-            type: Number,
-            required: [true, ERROR_MESSAGES.required("Stock quantity")],
-            min: [0, ERROR_MESSAGES.negative("Stock")],
-            default: 0,
-          },
         },
       ],
       validate: {
@@ -56,7 +33,6 @@ const wishListSchema = new mongoose.Schema(
   }
 );
 
-// Middleware to validate product existence and stock availability
 wishListSchema.pre("save", async function (next) {
   try {
     for (const item of this.products) {
@@ -66,7 +42,7 @@ wishListSchema.pre("save", async function (next) {
       }
       if (product.stock < 1) {
         throw new Error(
-          `Product: ${item.title} is out of stock and cannot be added to wishlist.`
+          `Product is out of stock and cannot be added to wishlist.`
         );
       }
     }
@@ -76,8 +52,10 @@ wishListSchema.pre("save", async function (next) {
   }
 });
 
-wishListSchema.index({ userId: 1, "products.productId": 1 }, { unique: true, sparse: true });
+wishListSchema.index(
+  { userId: 1, "products.productId": 1 },
+  { unique: true, sparse: true }
+);
 
-// Export the model
 export default mongoose.models.WishList ||
   mongoose.model("WishList", wishListSchema);

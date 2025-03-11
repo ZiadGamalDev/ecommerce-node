@@ -4,27 +4,27 @@ import { isAuth } from "../../Middlewares/isAuth.js";
 import { validationMiddleware } from "../../Middlewares/validation.js";
 import { asyncHandler } from "../../Middlewares/async-handler.js";
 import { systemRoles } from "../../utils/system-roles.js";
-import { wishListSchema } from "./WishList.validation.js";
+import * as wishListSchema from "./WishList.validation.js";
 
 const router = Router();
 
 router.get(
   "/",
-  isAuth([systemRoles.USER]),
+  isAuth([systemRoles.USER, systemRoles.ADMIN]),
   asyncHandler(wishListController.getWishList)
 );
 
 router.post(
   "/",
-  isAuth([systemRoles.USER]),
-  validationMiddleware(wishListSchema),
+  isAuth([systemRoles.USER, systemRoles.ADMIN]),
+  validationMiddleware(wishListSchema.GetWishListSchema),
   asyncHandler(wishListController.addToWishList)
 );
 
 router.delete(
   "/:productId",
-  isAuth([systemRoles.USER]),
-  validationMiddleware({ params: wishListSchema }),
+  isAuth([systemRoles.USER, systemRoles.ADMIN]),
+  validationMiddleware({ params: wishListSchema.DeleteWishListSchema }),
   asyncHandler(wishListController.removeFromWishList)
 );
 
