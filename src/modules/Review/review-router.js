@@ -18,7 +18,7 @@ router.get(
 //============================== Add Review ==============================//
 router.post(
   "/",
-  isAuth([systemRoles.USER]),
+  isAuth([systemRoles.USER, systemRoles.ADMIN]),
   validationMiddleware(reviewValidation.addReviewSchema),
   asyncHandler(reviewController.addReview)
 );
@@ -26,7 +26,7 @@ router.post(
 //============================== Update Review ==============================//
 router.put(
   "/:reviewId",
-  isAuth([systemRoles.USER]),
+  isAuth([systemRoles.USER, systemRoles.ADMIN]),
   validationMiddleware(reviewValidation.updateReviewSchema),
   asyncHandler(reviewController.updateReview)
 );
@@ -34,7 +34,7 @@ router.put(
 //============================== Delete Review ==============================//
 router.delete(
   "/:reviewId",
-  isAuth([systemRoles.USER]),
+  isAuth([systemRoles.USER, systemRoles.ADMIN]),
   validationMiddleware(reviewValidation.deleteReviewSchema),
   asyncHandler(reviewController.deleteReview)
 );

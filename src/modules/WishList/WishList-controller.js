@@ -5,7 +5,9 @@ import Product from "../../../DB/models/product-model.js";
 export const getWishList = async (req, res, next) => {
   try {
     const { _id: userId } = req.user;
-    const wishlist = await WishList.findOne({ userId }).lean();
+    const wishlist = await WishList.findOne({ userId })
+      .populate("products.productId")
+      .lean();
 
     if (!wishlist) return res.status(200).json({ wishlist: { products: [] } });
 
@@ -38,12 +40,7 @@ export const addToWishList = async (req, res, next) => {
     if (isProductExist)
       return res.status(400).json({ message: "Product already in wishlist" });
 
-    wishlist.products.push({
-      productId,
-      title: product.name,
-      description: product.description,
-      stock: product.stock,
-    });
+    wishlist.products.push({ productId });
 
     await wishlist.save();
     res.status(200).json({ message: "Item added to wishlist", wishlist });
@@ -61,7 +58,7 @@ export const removeFromWishList = async (req, res, next) => {
 
     const wishlist = await WishList.findOneAndUpdate(
       { userId },
-      { $pull: { products: { productId: productId } } },
+      { $pull: { products: { productId } } },
       { new: true }
     );
 

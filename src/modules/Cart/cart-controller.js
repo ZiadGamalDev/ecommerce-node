@@ -6,17 +6,39 @@ export const getCart = async (req, res, next) => {
   try {
     const { _id: userId } = req.user;
 
-    const cart = await Cart.findOne({ userId });
+    const cart = await Cart.findOne({ userId }).populate({
+      path: "products.productId",
+      select: "title appliedPrice images",
+    });
 
     if (!cart) {
-      cart = new Cart({ userId, products: [] });
+      const newCart = new Cart({ userId, products: [] });
+      await newCart.save();
+      res.status(200).json({ cart: newCart });
+      return;
     }
 
-    res.status(200).json({ cart });
+    const updatedProducts = cart.products.map((item) => ({
+      _id: item._id,
+      productId: item.productId._id,
+      title: item.productId.title,
+      quantity: item.quantity,
+      basePrice: item.basePrice,
+      finalPrice: item.finalPrice,
+      image: item.productId.images[0]?.secure_url || "",
+    }));
+
+    res.status(200).json({
+      cart: {
+        ...cart.toObject(),
+        products: updatedProducts,
+      },
+    });
   } catch (error) {
     next(error);
   }
 };
+
 
 //============================== add to cart ==============================//
 export const addToCart = async (req, res, next) => {
@@ -35,11 +57,6 @@ export const addToCart = async (req, res, next) => {
       return res.status(404).json({ message: "Product not found" });
     }
 
-    if (quantity <= 0) {
-      return res
-        .status(400)
-        .json({ message: "Quantity must be greater than 0" });
-    }
     if (product.stock < quantity) {
       return res.status(400).json({ message: "Out of Stock" });
     }
@@ -49,24 +66,27 @@ export const addToCart = async (req, res, next) => {
     );
 
     if (productIndex > -1) {
-      const newQuantity =
-        cart.products[productIndex].quantity + Number(quantity);
-
-      if (newQuantity > product.stock) {
-        return res.status(400).json({ message: "Out of Stock" });
+      const newQuantity = cart.products[productIndex].quantity + quantity;
+    
+      if (newQuantity <= 0) {
+        cart.products.splice(productIndex, 1);
+      } else {
+        cart.products[productIndex].quantity = newQuantity;
+        cart.products[productIndex].finalPrice =
+          cart.products[productIndex].basePrice * newQuantity;
       }
-
-      cart.products[productIndex].quantity = newQuantity;
-      cart.products[productIndex].finalPrice =
-        cart.products[productIndex].basePrice * newQuantity;
     } else {
-      cart.products.push({
-        productId,
-        quantity,
-        basePrice: product.appliedPrice,
-        finalPrice: product.appliedPrice * quantity,
-        title: product.title,
-      });
+      if (quantity > 0) {
+        cart.products.push({
+          productId,
+          quantity,
+          basePrice: product.appliedPrice,
+          finalPrice: product.appliedPrice * quantity,
+          title: product.title,
+        });
+      } else {
+        return res.status(400).json({ message: "Invalid quantity" });
+      }
     }
 
     cart.subTotal = cart.products.reduce(

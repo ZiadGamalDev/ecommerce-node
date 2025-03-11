@@ -1,5 +1,6 @@
 import Review from "../../../DB/models/review-model.js";
 import Product from "../../../DB/models/product-model.js";
+import mongoose from "mongoose";
 
 //============================== Get Reviews for a Product ==============================//
 export const getReviews = async (req, res, next) => {
@@ -9,9 +10,7 @@ export const getReviews = async (req, res, next) => {
       return res.status(400).json({ message: "Invalid productId format" });
     }
 
-    const reviews = await Review.find({
-      productId: new mongoose.Types.ObjectId(productId),
-    });
+    const reviews = await Review.find({ productId });
 
     res.status(200).json({ reviews });
   } catch (error) {
@@ -102,6 +101,6 @@ const updateProductRating = async (productId) => {
   const averageRating = reviews.length > 0 ? totalRating / reviews.length : 0;
 
   await Product.findByIdAndUpdate(productId, {
-    rating: averageRating.toFixed(1),
+    rate: averageRating.toFixed(1),
   });
 };
