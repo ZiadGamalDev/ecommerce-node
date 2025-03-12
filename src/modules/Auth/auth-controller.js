@@ -120,6 +120,7 @@ export const logIn = async (req, res, next) => {
     message: "User logged in successfully",
     data: {
       token,
+      role: user.role,
     },
   });
 };
