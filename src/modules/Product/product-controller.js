@@ -7,7 +7,7 @@ import productModel from "../../../DB/models/product-model.js";
 export const addproduct = async (req, res, next) => {
   const {
     title,
-    baseprice,
+    basePrice,
     stock,
     discountType,
     discountValue,
@@ -36,7 +36,7 @@ export const addproduct = async (req, res, next) => {
     });
   }
 
-  const appliedPrice = baseprice - (baseprice * (discountValue || 0)) / 100;
+  const appliedPrice = basePrice - (basePrice * (discountValue || 0)) / 100;
 
   //Images
 
@@ -64,7 +64,7 @@ export const addproduct = async (req, res, next) => {
     title: title,
     description: description,
     discount: { type: discountType, value: discountValue },
-    basePrice: baseprice,
+    basePrice: basePrice,
     appliedPrice: appliedPrice,
     // specs: JSON.parse(specs),
     category: categoryId,
