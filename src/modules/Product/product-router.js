@@ -10,28 +10,16 @@ import { validationMiddleware } from "../../Middlewares/validation.js";
 
 const router = Router();
 
-router.post(
-  "/:categoryId/:brandId",
-  isAuth([systemRoles.ADMIN]),
-  multerMiddleHost(allowedExtensions.image).array("files", 5),
-  validationMiddleware(productvalidation.addProductSchema),
-  asyncHandler(productController.addproduct)
-);
-
-router.put(
-  "/:productId",
-  isAuth([systemRoles.ADMIN]),
-  multerMiddleHost(allowedExtensions.image).array("files", 5),
-  validationMiddleware(productvalidation.updateProductSchema),
-  asyncHandler(productController.updateProduct)
-);
-
-router.get(
-  "/:productId",
-  isAuth([systemRoles.ADMIN, systemRoles.USER]),
-
-  asyncHandler(productController.getProductById)
-);
-
+// get all products
 router.get("/", asyncHandler(productController.getAllProducts));
+
+// add product
+router.post("/:categoryId/:brandId", isAuth([systemRoles.ADMIN]), multerMiddleHost(allowedExtensions.image).array("files", 5), validationMiddleware(productvalidation.addProductSchema), asyncHandler(productController.addproduct));
+
+// update product
+router.put("/:productId", isAuth([systemRoles.ADMIN]), multerMiddleHost(allowedExtensions.image).array("files", 5), validationMiddleware(productvalidation.updateProductSchema), asyncHandler(productController.updateProduct));
+
+// get single-product
+router.get("/:productId", asyncHandler(productController.getProductById));
+
 export default router;
