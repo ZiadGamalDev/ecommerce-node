@@ -55,12 +55,23 @@ export const addproduct = async (req, res, next) => {
 };
 
 export const updateProduct = async (req, res, next) => {
-    // data from the request body
-    const { title, specs, stock, basePrice, discountType, discountValue, category, brand, description, oldPublicId } = req.body;
-    // data for condition
-    const { productId } = req.params;
-    // data from the request authUser
-    const updatedBy = req.user._id;
+  // data from the request body
+  const {
+    title,
+    specs,
+    stock,
+    basePrice,
+    discountType,
+    discountValue,
+    categoryId,
+    brandId,
+    description,
+    oldPublicId,
+  } = req.body;
+  // data for condition
+  const { productId } = req.params;
+  // data from the request authUser
+  const updatedBy = req.user._id;
 
     // prodcuct Id
     const product = await productModel.findById(productId);
@@ -105,10 +116,10 @@ export const updateProduct = async (req, res, next) => {
         req.folder = folderPath + `${product.folderId}`;
     }
 
-    product.updatedBy = updatedBy;
-    product.category = category || product.category;
-    product.brand = brand || product.brand;
-    await product.save();
+  product.updatedBy = updatedBy;
+  product.category = categoryId || product.category;
+  product.brand = brandId || product.brand;
+  await product.save();
 
     res.status(200).json({ success: true, message: "Product updated successfully", data: product });
 };

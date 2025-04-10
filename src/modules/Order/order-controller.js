@@ -12,6 +12,7 @@ import {
 } from "../../services/payment-handler/stripe.js";
 import { checkproductAvaliability } from "../../utils/product-cart-utils/check-product-avaliability.js";
 import { couponValidation } from "../Copoun/apply-coupon-validation.js";
+import Stripe from "stripe";
 
 export const createOrder = async (req, res, next) => {
   // Destructuring the request body
@@ -156,7 +157,7 @@ export const convertFromCartToOrder = async (req, res, next) => {
 
   // Find user cart
   const userCart = await cartModel.findOne({ userId });
-  if (!userCart) return next({ message: "Cart not found", status: 404 });
+  if (!userCart) return next({ message: "Cart not found", cause: 404 });
 
   // Coupon code check
   let coupon = null;
@@ -262,7 +263,9 @@ export const convertFromCartToOrder = async (req, res, next) => {
 };
 
 export const getOrders = async (req, res, next) => {
-  const orders = await orderModel.find();
+  const orders = await orderModel
+    .find()
+    .populate({ path: "userId", select: "email -_id" });
 
   if (!orders) {
     return next({ message: "Failed to fetch orders", cause: 404 });
@@ -347,18 +350,56 @@ export const payOrderWithStripe = async (req, res, next) => {
   res.status(200).json({ checkoutSession, paymentIntent });
 };
 
+// export const stripeWebHookLocal = async (req, res, next) => {
+//   const orderId = req.body.data.object.metadata.orderId;
+//   const order = await orderModel.findById(orderId);
+
+//   await confirmPaymentIntent(order.payment_intent);
+
+//   order.orderStatus = "Paid";
+//   order.isPaid = true;
+//   order.paidAt = DateTime.now().toFormat("yyyy-MM-dd HH:mm:ss");
+//   await order.save();
+
+//   res.status(200).json({ message: "ok" });
+// };
+
+
 export const stripeWebHookLocal = async (req, res, next) => {
-  const orderId = req.body.data.object.metadata.orderId;
-  const order = await orderModel.findById(orderId);
+  const stripe = new Stripe(process.env.STRIPE_SECRTE_KEY);
+  const sig = req.headers["stripe-signature"];
 
-  await confirmPaymentIntent(order.payment_intent);
+  let event;
 
-  order.orderStatus = "Paid";
-  order.isPaid = true;
-  order.paidAt = DateTime.now().toFormat("yyyy-MM-dd HH:mm:ss");
-  await order.save();
+  try {
+    event = stripe.webhooks.constructEvent(
+      req.rawBody, 
+      sig,
+      process.env.STRIPE_WEBHOOK_SECRET 
+    );
+  } catch (err) {
+    return res.status(400).send(`Webhook Error: ${err.message}`);
+  }
 
-  res.status(200).json({ message: "ok" });
+  // Check for the right event type
+  if (event.type === "checkout.session.completed") {
+    const session = event.data.object;
+    const orderId = session.metadata.orderId;
+
+    const order = await orderModel.findById(orderId);
+    if (!order) return res.status(404).json({ message: "Order not found" });
+
+    await confirmPaymentIntent(order.payment_intent);
+
+    order.orderStatus = "Paid";
+    order.isPaid = true;
+    order.paidAt = DateTime.now().toFormat("yyyy-MM-dd HH:mm:ss");
+    await order.save();
+
+    return res.status(200).json({ message: "Payment confirmed" });
+  }
+
+  res.status(200).json({ message: "Unhandled event" });
 };
 
 export const refundOrder = async (req, res, next) => {
