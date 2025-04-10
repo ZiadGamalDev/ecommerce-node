@@ -33,5 +33,8 @@ router.get(
   asyncHandler(productController.getProductById)
 );
 
+// get all products
 router.get("/", asyncHandler(productController.getAllProducts));
+
+
 export default router;

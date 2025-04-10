@@ -121,6 +121,7 @@ export const logIn = async (req, res, next) => {
     data: {
       token,
       role: user.role,
+      userId: user._id
     },
   });
 };
