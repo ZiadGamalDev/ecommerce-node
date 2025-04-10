@@ -94,8 +94,8 @@ export const updateProduct = async (req, res, next) => {
     basePrice,
     discountType,
     discountValue,
-    category,
-    brand,
+    categoryId,
+    brandId,
     description,
     oldPublicId,
   } = req.body;
@@ -166,8 +166,8 @@ export const updateProduct = async (req, res, next) => {
   }
 
   product.updatedBy = updatedBy;
-  product.category = category || product.category;
-  product.brand = brand || product.brand;
+  product.category = categoryId || product.category;
+  product.brand = brandId || product.brand;
   await product.save();
 
   res.status(200).json({

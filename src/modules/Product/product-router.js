@@ -14,7 +14,7 @@ router.post(
   "/:categoryId/:brandId",
   isAuth([systemRoles.ADMIN]),
   multerMiddleHost(allowedExtensions.image).array("files", 5),
-  validationMiddleware(productvalidation.addProductSchema),
+  // validationMiddleware(productvalidation.addProductSchema),
   asyncHandler(productController.addproduct)
 );
 
@@ -22,7 +22,7 @@ router.put(
   "/:productId",
   isAuth([systemRoles.ADMIN]),
   multerMiddleHost(allowedExtensions.image).array("files", 5),
-  validationMiddleware(productvalidation.updateProductSchema),
+  // validationMiddleware(productvalidation.updateProductSchema),
   asyncHandler(productController.updateProduct)
 );
 

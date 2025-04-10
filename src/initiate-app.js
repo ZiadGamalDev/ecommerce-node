@@ -6,11 +6,17 @@ import * as routers from "../src/modules/index.routers.js";
 import { rollBackSavedDocuments } from "./Middlewares/rollback-saved-docs.js";
 import Category from "../DB/models/category-model.js";
 import { rollbackUploadedFiles } from "./Middlewares/rollback-uploaded-files.js";
-import Brand from "../DB/models/brand-model.js";
+import bodyParser from "body-parser";
 
 export const initiateApp = async (app, express) => {
   const port = process.env.PORT;
   console.log(port);
+
+  app.use(
+    "/order/webhook",
+    express.raw({ type: "application/json" }) 
+  );
+  
   app.use(express.json());
 
   db_connection();
