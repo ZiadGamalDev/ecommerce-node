@@ -1,8 +1,26 @@
+import userModel from "../../../DB/models/user-model.js";
 import User from "../../../DB/models/user-model.js";
 
 export const getProfile = async (req, res, next) => {
   try {
     const { password, ...user } = req.user._doc;
+
+    res.json({ message: "Profile fetched successfully", user });
+  } catch (error) {
+    res.status(500).json({ message: error.message });
+  }
+
+
+};
+
+
+
+export const getProfileById = async (req, res, next) => {
+  try {
+
+    const id  = req.params.id
+    
+    const user= await userModel.findById(id).select("-password")
 
     res.json({ message: "Profile fetched successfully", user });
   } catch (error) {
