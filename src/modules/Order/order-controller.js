@@ -305,6 +305,21 @@ export const getUserOrders = async (req, res, next) => {
     data: orders,
   });
 };
+export const getUserOrdersById  = async (req, res, next) => {
+  const userId = req.params.id
+
+  const orders = await orderModel.find({ userId });
+
+  if (!orders) {
+    return next({ message: "Failed to fetch user orders", cause: 404 });
+  }
+
+  return res.json({
+    success: true,
+    message: "User orders fetched successfully",
+    data: orders,
+  });
+};
 
 export const payOrderWithStripe = async (req, res, next) => {
   const { orderId } = req.params;

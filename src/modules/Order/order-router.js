@@ -29,6 +29,10 @@ router.get(
   isAuth([systemRoles.USER, systemRoles.ADMIN]),
   asyncHandler(orderController.getUserOrders)
 );
+router.get(
+  "/my-orders/:id",
+ asyncHandler(orderController.getUserOrdersById)
+);
 
 router.get(
   "/:id",
