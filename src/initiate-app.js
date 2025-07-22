@@ -31,7 +31,17 @@ export const initiateApp = async (app, express) => {
         console.log("No problematic index found");
     }
 
-    app.use(cors());
+    // CORS configuration using environment variables
+    const allowedOrigins = [
+        process.env.ECOMMERCE_FRONTEND_URL,
+        process.env.ADMIN_FRONTEND_URL,
+        process.env.CHAT_FRONTEND_URL
+    ].filter(Boolean); // Remove any undefined values
+
+    app.use(cors({
+        origin: allowedOrigins,
+        credentials: true
+    }));
 
     app.use("/auth", routers.authRouter);
     app.use("/category", routers.categoryRouter);
